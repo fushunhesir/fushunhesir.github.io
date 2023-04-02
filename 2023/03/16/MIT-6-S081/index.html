@@ -20,18 +20,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>MIT 6.S081 - blacktree</title>
+  <title>MIT 6.S081 - hiblog</title>
 
   
-    <meta name="description" content="MIT 6.S081 LabLab 3检测被访问过的页面 背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。 目的：实现检测页表访问位并将结果返回到用户态 前提知识 RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位   具体工作 代码实现在kernel&#x2F;sysproc.c中的sys_pgaccess()，参数如下 第一个要检查的用户页">
+    <meta name="description" content="MIT 6.S081 Lab Lab 3 检测被访问过的页面  背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。 目的：实现检测页表访问位并将结果返回到用户态 前提知识  RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位   具体工作  代码实现在kernel&#x2F;sysproc.c中的sys_pgaccess()，参数如下  第一个要检查的用户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIT 6.S081">
 <meta property="og:url" content="http://fushunhesir.github.io/2023/03/16/MIT-6-S081/index.html">
-<meta property="og:site_name" content="blacktree">
-<meta property="og:description" content="MIT 6.S081 LabLab 3检测被访问过的页面 背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。 目的：实现检测页表访问位并将结果返回到用户态 前提知识 RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位   具体工作 代码实现在kernel&#x2F;sysproc.c中的sys_pgaccess()，参数如下 第一个要检查的用户页">
+<meta property="og:site_name" content="hiblog">
+<meta property="og:description" content="MIT 6.S081 Lab Lab 3 检测被访问过的页面  背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。 目的：实现检测页表访问位并将结果返回到用户态 前提知识  RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位   具体工作  代码实现在kernel&#x2F;sysproc.c中的sys_pgaccess()，参数如下  第一个要检查的用户">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-16T13:37:59.000Z">
-<meta property="article:modified_time" content="2023-04-02T05:20:16.606Z">
+<meta property="article:modified_time" content="2023-04-02T05:37:29.497Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
 <meta property="article:tag" content="economy">
@@ -48,6 +48,8 @@
 
   
 
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/web_icon_1.jpg">
   
 
   
@@ -70,7 +72,7 @@
 
   
 
-<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">blacktree</div></a></div>
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">hiblog</div><div class="sub cap">a simple blog</div></a></div>
 
 <nav class="menu dis-select"></nav>
 </header>
@@ -99,15 +101,21 @@
 
 <article class='md-text content post'>
 <h1 class="article-title"><span>MIT 6.S081</span></h1>
-<h1 id="MIT-6-S081-Lab"><a href="#MIT-6-S081-Lab" class="headerlink" title="MIT 6.S081 Lab"></a>MIT 6.S081 Lab</h1><h2 id="Lab-3"><a href="#Lab-3" class="headerlink" title="Lab 3"></a>Lab 3</h2><h3 id="检测被访问过的页面"><a href="#检测被访问过的页面" class="headerlink" title="检测被访问过的页面"></a>检测被访问过的页面</h3><ul>
+<h1 id="MIT-6-S081-Lab"><a href="#MIT-6-S081-Lab" class="headerlink" title="MIT 6.S081 Lab"></a>MIT 6.S081 Lab</h1>
+<h2 id="Lab-3"><a href="#Lab-3" class="headerlink" title="Lab 3"></a>Lab 3</h2>
+<h3 id="检测被访问过的页面"><a href="#检测被访问过的页面" class="headerlink" title="检测被访问过的页面"></a>检测被访问过的页面</h3>
+<ul>
 <li><strong>背景</strong>：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。</li>
 <li><strong>目的</strong>：实现检测页表访问位并将结果返回到用户态</li>
-<li><strong>前提知识</strong><ul>
+<li><strong>前提知识</strong>
+<ul>
 <li>RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位</li>
 </ul>
 </li>
-<li><strong>具体工作</strong><ul>
-<li>代码实现在<strong>kernel&#x2F;sysproc.c</strong>中的<strong>sys_pgaccess</strong>()，参数如下<ul>
+<li><strong>具体工作</strong>
+<ul>
+<li>代码实现在<strong>kernel/sysproc.c</strong>中的<strong>sys_pgaccess</strong>()，参数如下
+<ul>
 <li>第一个要检查的用户页面的虚拟地址</li>
 <li>将要检查页面的数量</li>
 <li>用于返回掩码结果的用户空间地址</li>
@@ -117,15 +125,13 @@
 <li>最好在内核使用一个临时的缓冲区保存要输出的位掩码，利用<strong>copyout</strong>()输出</li>
 <li>可以设置扫描页面数量的上限</li>
 <li>使用walk()来找到正确的PTEs</li>
-<li>需要在<strong>kernel&#x2F;riscv.h</strong>中定义<strong>PTE_A</strong></li>
+<li>需要在<strong>kernel/riscv.h</strong>中定义<strong>PTE_A</strong></li>
 <li>确保检查<strong>PTE_A</strong>后，将其清零。否则无法判断在上次检查之后该页面有没有再次被访问</li>
 <li>使用**vmprint()**来帮助debug</li>
 </ul>
 </li>
-<li><strong>代码</strong><ul>
-<li></li>
-</ul>
-</li>
+<li><strong>代码</strong>
+*</li>
 </ul>
 
 
