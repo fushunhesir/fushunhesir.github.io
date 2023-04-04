@@ -97,9 +97,9 @@
 
 <div class="nav-wrap"><nav class="sub post cap"><a class="active" href="/">近期发布</a><a href="/categories">分类</a><a href="/tags">标签</a><a href="/archives">归档</a></nav></div>
 
-  <div class="post-list post"><a class="post-card post " href="/2023/04/02/hello-world/">
+  <div class="post-list post"><a class="post-card post " href="/2023/04/04/hello-world/">
 <article class="md-text"><h2 class="post-title">Hello World</h2><div class="excerpt"><p>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-04-02T12:19:18.104Z">2023-04-02</time></span></div></article>
+Qu...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-04-04T13:48:49.296Z">2023-04-04</time></span></div></article>
 </a><a class="post-card post " href="/2023/04/02/Math/">
 <article class="md-text"><h2 class="post-title">Math</h2><div class="excerpt"><p>高等数学
 前导知识
@@ -255,22 +255,22 @@ a：极限值
 数据挖掘： 用智能方法提取数据模式
 模式评估： 用某种兴趣度度量，识别真正...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-04-02T05:08:37.000Z">2023-04-02</time></span></div></article>
 </a><a class="post-card post " href="/2023/03/16/MIT-6-S081/">
-<article class="md-text"><h2 class="post-title">MIT 6.S081</h2><div class="excerpt"><p>MIT 6.S081 Lab
-Lab 3
-检测被访问过的页面
+<article class="md-text"><h2 class="post-title">MIT 6.S081</h2><div class="excerpt"><p>MIT 6.S081
+理论部分
+陷阱和系统调用
 
-背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。
-目的：实现检测页表访问位并将结果返回到用户态
-前提知识
+陷阱机制：内核通过对特定控制寄存器进行写操作，CPU利用这些寄存器的信息处理陷阱
 
-RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位
+特定控制寄存器
+
+STVEC：保存陷阱处理代码的地址
+SEPC：保存进入陷阱前的PC
+SCAUSE：保存陷阱的类型
+SSCRATCH：
+SSTATUS：分为SIE位、SPP位，前者控制中断使能，后者表示陷阱来自内核态还是用户态
 
 
-具体工作
-
-代码实现在kernel/sysproc.c中的sys_pgaccess()，参数如下
-
-第一个要检查...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-03-16T13:37:59.000Z">2023-03-16</time></span></div></article>
+以上这些特定控制寄存器只能在...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-03-16T13:37:59.000Z">2023-03-16</time></span></div></article>
 </a><a class="post-card post " href="/2023/01/30/Stanford-CS144/">
 <article class="md-text"><h2 class="post-title">cs144</h2><div class="excerpt"><p>RISCV
 Chapter 4
