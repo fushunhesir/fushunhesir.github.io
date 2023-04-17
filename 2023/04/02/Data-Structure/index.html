@@ -30,12 +30,14 @@
 <meta property="og:site_name" content="hiblog">
 <meta property="og:description" content="数据结构 绪论 数据结构基本概念  基本概念和术语  数据：不是简单指数字，而是代指一切能够输入计算机内部的符号，并且该符号承载了信息以及事物的属性 数据元素：是一个整体结构，内部包含数据项，数据项是组成数据元素的最小单位。比如：学生（学号、姓名、班级） 数据对象：具有相同性质的数据元素的集合，如：数据库中元组和关系，元组是数据元素，关系是数据对象 数据类型  原子类型：不可再分的类型，如：基本数">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/DS_vector_interface.png">
 <meta property="article:published_time" content="2023-04-02T05:11:54.000Z">
-<meta property="article:modified_time" content="2023-04-13T10:12:21.629Z">
+<meta property="article:modified_time" content="2023-04-17T13:53:59.796Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
 <meta property="article:tag" content="economy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/DS_vector_interface.png">
   
   
 
@@ -82,7 +84,7 @@
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
 
-<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Data Structure</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">数据结构基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F"><span class="toc-text">复杂度度量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-text">线性表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">线性表的定义和基本操作</span></a></li></ol></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">Data Structure</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">数据结构基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F"><span class="toc-text">复杂度度量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F"><span class="toc-text">向量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%95%B0%E7%BB%84%E5%88%B0%E5%90%91%E9%87%8F"><span class="toc-text">从数组到向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84"><span class="toc-text">构造与析构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="toc-text">动态空间管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%90%91%E9%87%8F"><span class="toc-text">常规向量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-text">线性表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">线性表的定义和基本操作</span></a></li></ol></li></ol></div></div></widget>
 
 
 
@@ -172,27 +174,106 @@
 <h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3>
 <p><em>分支转向是算法的灵魂</em></p>
 <ul>
-<li><strong>递归</strong>：函数(过程)的自我调用。简洁准确地描述问题</li>
-<li><strong>递归基</strong>：平凡情况。递归基能够保证递归算法的有穷性。</li>
-<li><strong>线性递归</strong>
+<li>
+<p><strong>递归</strong>：函数(过程)的自我调用。简洁准确地描述问题</p>
+</li>
+<li>
+<p><strong>递归基</strong>：平凡情况。递归基能够保证递归算法的有穷性。</p>
+</li>
+<li>
+<p><strong>线性递归</strong></p>
 <ul>
 <li><strong>简介</strong>：<em>算法向深层递归调用，每一次至多调用自身一次，从而形成线性次序。</em></li>
 <li><strong>特征</strong>：线性递归问题，总可以分解为两个子问题，一个是独立的某个元素，另一个是和原问题结构一致的子问题。经过合并之后得到问题解。<strong>这类问题每次将问题规模缩减一个常数，最终抵达递归基，也称为减而治之</strong></li>
 </ul>
 </li>
-<li><strong>递归分析</strong>
+<li>
+<p><strong>递归分析</strong></p>
 <ul>
 <li><strong>递推方程</strong>：写出递推公式，确定平凡模式条件，结合数学归纳得出递归复杂度</li>
 <li><strong>递归跟踪</strong>：以图的形式刻画递归过程，从而分析递归复杂度</li>
 </ul>
 </li>
-<li><strong>递归模式</strong>
+<li>
+<p><strong>递归模式</strong></p>
 <ul>
 <li><strong>多递归基</strong></li>
 <li><strong>多向递归</strong></li>
 </ul>
 </li>
+<li>
+<p><strong>二分递归</strong></p>
+<ul>
+<li>
+<p><strong>分而治之</strong></p>
+<p><em>将问题分解为若干规模更小的子问题</em></p>
+<ul>
+<li><strong>难点</strong>：需要对问题重新表述，保证子问题与原问题接口的形式一致</li>
+<li><strong>注意</strong>：对算法的渐近复杂度几乎无影响</li>
 </ul>
+</li>
+<li>
+<p><strong>分而治之适用条件</strong></p>
+<ul>
+<li>子问题划分和子问题合并这两个计算必须能够高效实现</li>
+<li>各个子问题独立求解，并不相互依赖</li>
+</ul>
+</li>
+<li>
+<p><strong>优化策略</strong></p>
+<ul>
+<li>对于子问题有重合的问题，可以选择使用制表或者动态规划来进行优化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>抽象数据类型(ADT)</strong></p>
+<ul>
+<li>外部特性与内部实现分离，提供一致且标准的对外接口</li>
+</ul>
+</li>
+</ul>
+<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2>
+<p><em>物理存储顺序与逻辑顺序相同的数据结构</em></p>
+<h3 id="从数组到向量"><a href="#从数组到向量" class="headerlink" title="从数组到向量"></a>从数组到向量</h3>
+<ul>
+<li><strong>向量</strong>：根据面向对象思想，对线性数组的抽象与泛化。其中的数据元素不再只是基本数据类型，也不保证每个元素都有某个数值</li>
+</ul>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3>
+<ul>
+<li>
+<p><strong>操作接口</strong></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/DS_vector_interface.png" alt="image-20230417130608296"></p>
+</li>
+</ul>
+<h3 id="构造与析构"><a href="#构造与析构" class="headerlink" title="构造与析构"></a>构造与析构</h3>
+<p><em>指导计算机创建和回收对象</em></p>
+<ul>
+<li><strong>构造函数</strong>：告诉计算机如何配置一个对象的内存</li>
+<li><strong>析构函数</strong>：告诉计算机如何回收一个对象的内存</li>
+</ul>
+<h3 id="动态空间管理"><a href="#动态空间管理" class="headerlink" title="动态空间管理"></a>动态空间管理</h3>
+<p><em>高效利用空间</em></p>
+<ul>
+<li><strong>静态空间管理</strong>：在向量的生命周期内无法改变容量</li>
+<li><strong>动态空间管理</strong>：在向量的生命周期内容量可以动态变化
+<ul>
+<li><strong>可扩充向量</strong>：一种动态空间管理方法。申请新的更大的内存，然后复制数据，回收原来的内存</li>
+<li><strong>基本问题</strong>
+<ul>
+<li><strong>新容量取多少</strong>：2倍原内存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>分摊分析</strong>
+<ul>
+<li>将某些时间复杂度不确定的操作，将其所消耗的时间分摊到所有操作上</li>
+</ul>
+</li>
+</ul>
+<h3 id="常规向量"><a href="#常规向量" class="headerlink" title="常规向量"></a>常规向量</h3>
 <h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2>
 <h3 id="线性表的定义和基本操作"><a href="#线性表的定义和基本操作" class="headerlink" title="线性表的定义和基本操作"></a>线性表的定义和基本操作</h3>
 <ul>
