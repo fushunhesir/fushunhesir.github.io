@@ -51,12 +51,14 @@ category: base-course
   };
   ```
 
-  * `ai_flag`
+  * `ai_flag`：用于标识 `getaddrinfo()` 函数返回结果的标志字段，可以设置为以下常量之一或它们的按位或组合。其中AI前缀表示**Address Information**
 
-    * `AI_NUMERICSERV`：表示调用`getaddrinfo(...)`的时候`service`被置为端口号
-    * `AI_NUMERICHOST`：表示调用`getaddrinfo(...)`的时候`host`被置为IP地址
-    * `AI_NOFQDN`：表示调用`getaddrinfo(...)`的时候若为局域网中主机，`host`被置为IP地址中的主机号而不包括子网号
-    * `AI_PASSIVE`：表示调用`getaddrinfo(...)`的时候自动绑定本机IP
+    * `AI_PASSIVE`：用于指定用于套接字的地址是通配地址，适用于服务器端程序，表示服务器端将监听所有可用的网络接口。
+    * `AI_CANONNAME`：用于指定返回的主机名是否是规范名，如果设置了该标志，则 `getaddrinfo()` 会将主机名转换为其规范名，否则返回的主机名可能是别名。
+    * `AI_NUMERICHOST`：用于指定主机名必须是一个 IP 地址字符串，而不是一个主机名，如果指定了该标志，则 `getaddrinfo()` 不会尝试解析主机名。
+    * `AI_NUMERICSERV`：用于指定服务名必须是一个端口号字符串，而不是一个服务名，如果指定了该标志，则 `getaddrinfo()` 不会尝试查找服务名。
+    * `AI_ADDRCONFIG`：用于指定只返回与本地系统的地址族相匹配的地址，例如 IPv4 地址族的系统将只返回 IPv4 地址。
+    * `AI_V4MAPPED`：用于指定如果没有找到与查询参数完全匹配的 IPv6 地址，那么`getaddrinfo()`将尝试返回一个 IPv4 映射的 IPv6 地址。
 
   * `ai_family`：表示协议类别，`AF_INET`表示`IPV4`，`AF_UNSPEC`表示自动判定
 
@@ -317,7 +319,7 @@ category: base-course
 
 ### `listen(...)`
 
-*监听连接此套接口的请求*
+*更改此套接口的状态为监听状态*
 
 * ```C
   int listen(int sockfd, int backlog);
@@ -434,5 +436,29 @@ category: base-course
 
 ### 阻塞
 
+*阻塞就是线程在某一条语句中sleep*
 
+* ```c
+  #include <unistd.h>
+  #include <fcntl.h>
+  
+  sockfd = socket(PF_INET, SOCK_STREAM, 0);
+  fcntl(sockfd, F_SETFL, O_NONBLOCK);
+  ```
 
+  `fcntl`：使阻塞函数成为非阻塞函数
+
+### `select(...)`
+
+*同时监听多个套接口*
+
+* ```C
+  #include <sys/time.h>
+  #include <sys/types.h>
+  #include <unistd.h>
+  
+  int select(int numfds, fd_set *readfds, fd_set *writefds,
+             fd_set *exceptfds, struct timeval *timeout);
+  ```
+
+  
