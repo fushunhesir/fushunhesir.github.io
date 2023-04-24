@@ -239,9 +239,30 @@ int Vector<T>::deduplicate(){
 
   * **版本B**
 
-    
+    ```C
+    template <typename T>
+    rank Vector<T>::search(const T& e, rank lo, rank hi) const{
+        while(1 < hi - lo) {
+            rank mid = (lo + hi) >> 1;
+            if(e < _elem[mid]) hi = mid;
+            else lo = mid;
+        }
+        return _elem[lo] == e ? lo : -1;
+    }
+    ```
 
   * **版本C**
+
+    ```C
+    template <typename T>
+    rank Vector<T>::Search(const T& e, rank lo, rank hi){
+    	while(lo < hi) {
+            rank mid = (hi + lo) >> 1;
+            if(e < _elem[mid]) hi = mid : lo = mid + 1;
+        }
+        return --lo;
+    }
+    ```
 
 * **斐波那契查找**
 
