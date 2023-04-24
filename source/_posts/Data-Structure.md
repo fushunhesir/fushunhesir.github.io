@@ -126,11 +126,171 @@ tags:
 
 ### 常规向量
 
+#### 直接引用元素
 
+```C
+template <typename T>
+T& Vector<T>::operator[](rank i) {return _elem[i];}
+```
 
-## 线性表
+#### 置乱算法
 
-### 线性表的定义和基本操作
+```C
+template <typename T>
+T& Vector<T>::permute(rank lo, rank hi){
+	T* base = _elem + lo;
+  for(int i = hi - lo; i > 0; i--){
+		swap(base[i-1], base[rand() % i]);
+  }
+}
+```
 
-* **定义**：具有相同数据类型的n个数据元素，形成的有限序列。**比如**：数据元素是节点，形成有限序列
-* 
+#### 顺序查找
+
+```c
+template <typename T>
+rank Vector<T>::find(const T& e, rank lo, rank hi) const{
+  while(lo < hi-- && e != _elem[hi]);
+  return hi < lo ? -1 : hi;
+}
+```
+
+#### 插入
+
+```C
+template <typename T>
+rank Vector<T>::insert(const T& e, rank r){
+	expand(); // 必要时扩容
+	for(int i = _size; i > r; i--) _elem[i] = _elem[i-1];
+	_elem[r] = e;
+	_size++;
+	return r;
+}
+```
+
+**时间复杂度**：$O(n)$
+
+#### 删除
+
+```C
+template <typename T>
+rank Vector<T>::remove(rank lo, rank hi){
+  if(lo == hi) return 0;
+  while(hi < _size) _elem[lo++] = _elem[hi++];
+  _size = lo;
+  shrink();
+  return hi - lo;
+}
+```
+
+**时间复杂度**：$O(n)$
+
+#### 唯一化
+
+```C
+template <typename T>
+int Vector<T>::deduplicate(rank lo, rank hi) {
+  int old_size = _size;
+  if(lo == hi) return 0;
+  for(int i = 1; i < hi;){
+    find(_elem[i], lo, i) < 0 ?
+      i++ : remove(i);
+  }
+  return old_size - _size;
+}
+```
+
+### 有序向量
+
+#### 唯一化
+
+```C
+template <typename T>
+int Vector<T>::deduplicate(){
+  int i = 0, j = 0;
+  while(++j < _size)
+    if(_elem[j] != _elem[i])
+      _elem[++i] = _elem[j];
+  _size = i;
+  return j - i;
+}
+```
+
+**时间复杂度**：$O(n)$
+
+#### 查找
+
+* **二分查找**
+
+  * **版本A**
+
+    ```C
+    template <typename T>
+    rank Vector<T>::search(const T& e, rank lo, rank hi) const{
+    	while(lo < hi) {
+        rank mid = (lo + hi) >> 1;
+    	  if(_elem[mid] == e) return mid;
+      	else if(_elem[mid] < e) lo = mid + 1;
+      	else hi = mid;
+      }
+      return -1;
+    }
+    ```
+
+  * **版本B**
+
+    
+
+  * **版本C**
+
+* **斐波那契查找**
+
+### 排序与下界
+
+#### 排序及其分类
+
+* **数据处理规模或存储特点**：外部排序和内部排序
+* **数据的输入形式**：离线和在线
+* **随机策略**：确定式和随机式
+
+#### 比较树
+
+* **定义**：根绝算法的比较与比对流程将算法抽象为一棵比较树
+* **作用**：估计**基于比较式算法**的复杂度下界
+* **方法**：根据算法**可能的输出结果数量**，反推比较树的**最大高度**，从而估计算法的复杂度下界
+
+### 排序器
+
+* **稳定性**：排序完成后，值相同的元素在向量中的相对位置不发生改变
+
+* **冒泡排序**
+
+  ```C
+  template <typename T>
+  rank Vector<T>::bubble_sort(rank lo, rank hi){
+    while(!bubble(lo, hi--));
+  }
+  
+  template <typename T>
+  rank Vector<T>::bubble(rank lo, rank hi){
+    bool sorted = true;
+    while(++lo < hi){
+      if(_elem[lo - 1] > _elem[i]){
+        sorted = false;
+        swap(_elem[i], _elem[i-1]);
+      }
+    }
+    return sorted;
+  }
+  ```
+
+  * *冒泡排序算法具有稳定性*
+
+* **归并排序**
+
+  ```c
+  
+  ```
+
+  * *第一个能够在最坏情况下保证$O(n\log n)$复杂度的确定性算法*
+  * 
