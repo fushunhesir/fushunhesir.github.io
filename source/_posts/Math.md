@@ -6,6 +6,8 @@ tags:
 
 # 高等数学
 
+**总纲**：一步一步，以点带面，掌握思想，及时反思
+
 ## 前导知识
 
 * **三角函数公式**
@@ -782,3 +784,66 @@ tags:
 ### 空间直线及其方程
 
 * 空间直线的一般方程
+
+## 多元函数微分学
+
+### 多元函数极限与连续性
+
+* **二元函数的极限**
+
+  * **二元函数极限**：$|f(x,y)-A|<\varepsilon$，从任何路径趋近
+
+  * **极限与无穷小的关系**：$\lim f(x)=A\Leftrightarrow f(x)=A+\alpha(x,y)$
+
+  * **求二元函数极限常用方法**：极限运算法则，放缩，变量替换
+
+  * **证明二元函数极限存在性**：找出一条路径的极限不存在、找出两条路径的极限不同
+
+* **二元函数的连续性**
+  * **二元函数的连续性**：$\lim_{(x,y)\to(x_0,y_0)} f(x,y) = f(x_0,y_0)$
+  * **二元初等函数在定义域连续**：x的初等函数与y的初等函数经过有限次四则运算，复合运算形成的函数
+  * **二元连续函数的性质**
+    * **局部保号性**
+    * **最大值最小值定理**
+    * **介值定理**
+
+### 偏导数与全微分
+
+* **偏导数概念与计算**
+
+  * **定义**：$\frac{\partial f(x_0, y_0)}{\partial x}=\lim_{x\to x_0}\frac{f(x,y_0)-f(x_0,y_0)}{x-x_0}$
+  * **偏导数的计算**：一元函数导数的计算
+
+* **可微性与全微分**
+
+  * **可微性**：$\Delta z=A\cdot\Delta x + B\cdot\Delta y + \rho$
+  * **全微分**：$dz=A\cdot\Delta x + B\cdot\Delta y$
+  * **充分条件**：偏导数存在且连续
+  * **必要条件**：偏导数存在，$A=f'_x(x,y),B=f'_y(x,y)$
+
+* **性质之间关系**
+
+  <img src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8%E9%97%B4%E5%85%B3%E7%B3%BB%E5%9B%BE.png" alt="image-20230424154940543" style="zoom: 33%;" />
+
+* **偏导次序**
+  * 若混合偏导数都在定义域上连续，**那么二阶混合偏导数的次序与结果无关**
+
+* **多元函数为常数的条件**
+
+  * **多元函数为常数的条件**：全微分恒等于0，或者说偏导数均为0
+
+  * 任意偏导数为0，即可将二元函数化为一元函数
+
+### 多元函数的微分法则
+
+* **全微分四则运算**
+
+  * **已知**：$u=u(x,y),v=v(x,y)$，均可微
+
+  * $d(uv)=vdu+udv$，$d(\frac{u}{v})=\frac{1}{v^2}\cdot(vdu-udv)$，$d(u+v)=du+dv$，$d(cu)=cdu$
+
+* **复合函数微分**
+  * **多元函数与一元函数复合**：$du=\frac{\partial u}{\partial x}\frac{dx}{dt}+\frac{\partial u}{\partial y}\frac{dy}{dt}$
+  * **多元函数与多元函数复合**：$\frac{\partial f}{\partial x}=\frac{\partial f}{\partial u}\frac{\partial u}{\partial x}+\frac{\partial f}{\partial v}\frac{\partial v}{\partial x}$
+  * **一阶全微分的形式不变性**：$d f=\frac{\partial f}{\partial u}du+\frac{\partial f}{\partial v}dv=\frac{\partial f}{\partial x}dx+\frac{\partial f}{\partial y}dy$
+  * 

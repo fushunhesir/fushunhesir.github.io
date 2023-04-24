@@ -1,5 +1,5 @@
 ---
-cosntitle: C++
+title: C++
 tags: []
 categories: []
 poster:
