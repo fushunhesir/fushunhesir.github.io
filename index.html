@@ -97,9 +97,9 @@
 
 <div class="nav-wrap"><nav class="sub post cap"><a class="active" href="/">近期发布</a><a href="/categories">分类</a><a href="/tags">标签</a><a href="/archives">归档</a></nav></div>
 
-  <div class="post-list post"><a class="post-card post " href="/2023/04/24/hello-world/">
+  <div class="post-list post"><a class="post-card post " href="/2023/04/26/hello-world/">
 <article class="md-text"><h2 class="post-title">Hello World</h2><div class="excerpt"><p>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-04-24T15:34:44.449Z">2023-04-24</time></span></div></article>
+Qu...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-04-26T09:03:30.324Z">2023-04-26</time></span></div></article>
 </a><a class="post-card post " href="/2023/04/19/GDB/">
 <article class="md-text"><h2 class="post-title">GDB</h2><div class="excerpt"><p>GDB
 多线程调试
@@ -289,26 +289,30 @@ endl：刷新缓冲区，保证内容真实写入到输出流
 数据变换： 通过汇总或聚集操作，将数据变换和统一为适合挖掘的形式
 数据挖掘： 用智能方法提取数据模式
 模式评估： 用某种兴趣度度量，识别真正...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-04-02T05:08:37.000Z">2023-04-02</time></span></div></article>
-</a><a class="post-card post " href="/2023/03/16/MIT-6-S081/">
-<article class="md-text"><h2 class="post-title">MIT 6.S081</h2><div class="excerpt"><p>MIT 6.S081
-配置问题
-本地环境
+</a><a class="post-card post " href="/2023/01/30/Stanford-CS144/">
+<article class="md-text"><h2 class="post-title">Stanford CS144</h2><div class="excerpt"><p>RISCV
+Chapter 4
 
-设备：MacBook Air 2020 ( m1 芯片 )
-编译器：Apple clang version 14.0.0 (clang-1400.0.29.202)
+陷阱：三种强制CPU放弃执行当前指令而执行特殊代码的事件
 
-问题清单
+系统调用：软中断
+异常：零除；无效的虚拟地址
+设备中断：比如磁盘完成读写
 
-无穷递归
 
-问题描述：error: infinite recursion detected [-Werror=infinite-recursion]
-解决方法：在sh.c...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-03-16T13:37:59.000Z">2023-03-16</time></span></div></article>
+从陷阱退出后，应该恢复至发生陷阱前的状态
+
+进入陷阱，强制进入kernel
+kernel保存当前运行状态
+kernel执行中断处理代码
+kernel用保存数据恢复状态
+退出陷阱，继续正常执行代码
+
+
+
+RISC-V tra...</p></div><div class="meta cap"><span class="cap" id="post-meta">发布于&nbsp;<time datetime="2023-01-30T02:18:30.000Z">2023-01-30</time></span><span class="cap breadcrumb">base-course</span></div></article>
 </a></div>
   
-  <div class='paginator-wrap dis-select'>
-  <span class="extend prev" rel="prev"></span><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"></a>
-  </div>
-
 
 
 
