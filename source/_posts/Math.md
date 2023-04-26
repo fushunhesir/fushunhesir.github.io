@@ -846,4 +846,34 @@ tags:
   * **多元函数与一元函数复合**：$du=\frac{\partial u}{\partial x}\frac{dx}{dt}+\frac{\partial u}{\partial y}\frac{dy}{dt}$
   * **多元函数与多元函数复合**：$\frac{\partial f}{\partial x}=\frac{\partial f}{\partial u}\frac{\partial u}{\partial x}+\frac{\partial f}{\partial v}\frac{\partial v}{\partial x}$
   * **一阶全微分的形式不变性**：$d f=\frac{\partial f}{\partial u}du+\frac{\partial f}{\partial v}dv=\frac{\partial f}{\partial x}dx+\frac{\partial f}{\partial y}dy$
-  * 
+
+### 隐函数微分法
+
+* **方程的确定隐函数**
+
+  * **一元隐函数存在定理**
+    * **条件**：函数在$(x_0,y_0)$邻域内连续，且$F(x_0,y_0)=0，F'(x_0,y_0)\neq 0$
+    * **结论**：在该邻域内，$F(x,y)=0\to y=f(x)，且y'=-\frac{F_x}{F_y}$
+    * **计算方法**：复合函数求导法则
+
+  * **二元隐函数存在定理**
+    * **条件**：函数$F(x,y,z)$在$(x_0,y_0,z_0)$附近有连续偏导数，且$F(x_0,y_0,z_0)=0,F'(x_0,y_0,z_0)\neq 0$
+    * **结论**：在该邻域内，$F(x,y,z)=0\to z=f(x,y)$，且$z_x=-\frac{F'_x}{F'_z}，z_y=-\frac{F'_y}{F'_z}$
+    * **隐函数一阶偏导计算方法**：复合函数求导法则、一阶全微分形式不变性、带入上述公式
+    * **隐函数二阶偏导计算方法**：复合函数求导法则、对上述一阶结果继续求偏导
+
+* **方程组确定的隐函数**
+
+  * **一元隐函数、二元隐函数**：克莱姆法则(从右往左看)
+
+    <img src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E5%85%8B%E8%8E%B1%E5%A7%86%E6%B3%95%E5%88%99(%E9%AB%98%E6%95%B0).png" alt="image-20230425160901253" style="zoom:35%;" />
+
+### 复合函数求导法则的应用
+
+* **极坐标变换**
+
+  <img src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E6%9E%81%E5%9D%90%E6%A0%87%E5%A4%8D%E5%90%88%E5%87%BD%E6%95%B0%E6%B1%82%E5%AF%BC%E5%8F%98%E6%8D%A2.png" alt="image-20230425162958095" style="zoom:50%;" />
+
+### 多元函数极值问题
+
+* **驻点概念**：二元函数的驻点需要偏导数同时为0

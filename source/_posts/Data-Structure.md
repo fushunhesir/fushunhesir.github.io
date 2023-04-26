@@ -128,14 +128,14 @@ tags:
 
 #### 直接引用元素
 
-```C
+```c++
 template <typename T>
 T& Vector<T>::operator[](rank i) {return _elem[i];}
 ```
 
 #### 置乱算法
 
-```C
+```c++
 template <typename T>
 T& Vector<T>::permute(rank lo, rank hi){
 	T* base = _elem + lo;
@@ -147,7 +147,7 @@ T& Vector<T>::permute(rank lo, rank hi){
 
 #### 顺序查找
 
-```c
+```c++
 template <typename T>
 rank Vector<T>::find(const T& e, rank lo, rank hi) const{
   while(lo < hi-- && e != _elem[hi]);
@@ -157,7 +157,7 @@ rank Vector<T>::find(const T& e, rank lo, rank hi) const{
 
 #### 插入
 
-```C
+```C++
 template <typename T>
 rank Vector<T>::insert(const T& e, rank r){
 	expand(); // 必要时扩容
@@ -172,7 +172,7 @@ rank Vector<T>::insert(const T& e, rank r){
 
 #### 删除
 
-```C
+```c++
 template <typename T>
 rank Vector<T>::remove(rank lo, rank hi){
   if(lo == hi) return 0;
@@ -187,7 +187,7 @@ rank Vector<T>::remove(rank lo, rank hi){
 
 #### 唯一化
 
-```C
+```C++
 template <typename T>
 int Vector<T>::deduplicate(rank lo, rank hi) {
   int old_size = _size;
@@ -204,7 +204,7 @@ int Vector<T>::deduplicate(rank lo, rank hi) {
 
 #### 唯一化
 
-```C
+```C++
 template <typename T>
 int Vector<T>::deduplicate(){
   int i = 0, j = 0;
@@ -224,7 +224,7 @@ int Vector<T>::deduplicate(){
 
   * **版本A**
 
-    ```C
+    ```c++
     template <typename T>
     rank Vector<T>::search(const T& e, rank lo, rank hi) const{
     	while(lo < hi) {
@@ -239,7 +239,7 @@ int Vector<T>::deduplicate(){
 
   * **版本B**
 
-    ```C
+    ```C++
     template <typename T>
     rank Vector<T>::search(const T& e, rank lo, rank hi) const{
         while(1 < hi - lo) {
@@ -253,7 +253,7 @@ int Vector<T>::deduplicate(){
 
   * **版本C**
 
-    ```C
+    ```C++
     template <typename T>
     rank Vector<T>::Search(const T& e, rank lo, rank hi){
     	while(lo < hi) {
@@ -265,6 +265,22 @@ int Vector<T>::deduplicate(){
     ```
 
 * **斐波那契查找**
+
+  ```C++
+  template <typename T>
+  rank Vector<T>::fib_search(const T& e, rank lo, rank hi) {
+    Fib fib(hi - lo);
+    while(lo < hi){
+      while(fib.get() > hi - lo) mid = fib.pre();
+      if(e < _elem[mid]) hi = mid;
+      else if(e > _elem[mid]) lo = mid + 1;
+      else return mid;
+    }
+    return -1;
+  }
+  ```
+
+  
 
 ### 排序与下界
 
@@ -286,7 +302,7 @@ int Vector<T>::deduplicate(){
 
 * **冒泡排序**
 
-  ```C
+  ```c++
   template <typename T>
   rank Vector<T>::bubble_sort(rank lo, rank hi){
     while(!bubble(lo, hi--));
@@ -309,9 +325,181 @@ int Vector<T>::deduplicate(){
 
 * **归并排序**
 
-  ```c
+  ```c++
+  template <typename T>
+  void Vector<T>::merge_sort(rank lo, rank hi) {
+    if(hi - lo < 2) return ;
+    mid = (lo + hi) >> 1;
+    merge_sort(lo, mid);
+    merge_sort(mid, hi);
+    merge(lo, mid, hi);
+  }
   
+  template <typename T>
+  void Vector<T>::merge(rank lo, rank mid, rank hi) {
+  	T* A = _elem + lo;
+    int lb = mid - lo;
+    T* B = new T[lb];
+    for(int i = 0; i < hi - lo; i++) B[i] = A[i];
+    int lc = hi - mid;
+    T* C = _elem + mid;
+    for(int i = 0, j = 0, k = 0; (i < lb || j < lc);){
+      if(i < lb && (!(j < lc) || B[i] <= C[j])) A[k++] = B[i++];
+      else if(j < lc && (!(i < lb) || C[j] < B[i])) A[k++] = C[j++];
+    }
+    delete[] B;
+  }
+  ```
+  
+  * *第一个能够在最坏情况下保证$O(n\log n)$复杂度的确定性算法*
+  * *时间复杂度*：$O(n\log n)$，*即使在链表上也能保证这个时间复杂度*
+  * *其中`merge()`时间复杂度为$O(n)$*
+
+## 列表
+
+*熟知的代表是链表，逻辑顺序和物理顺序不一定一致的数据结构*
+
+### 无序列表
+
+* **头尾节点**
+
+  * 作为哨兵存在，对外不可见。头节点指向首节点，尾节点的前驱指向末节点。
+
+    <img src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E5%88%97%E8%A1%A8%E7%BB%93%E6%9E%84.png" alt="image-20230425125649923" style="zoom:50%;" />
+
+
+* **默认构造方法**
+
+  ```c++
+  template <typename T>
+  void List<T>::init(){
+    header = new ListNode<T>;
+    tail = new ListNode<T>;
+    header->succ = tail;
+    header->pred = nullptr;
+    tail->pred = header;
+    tail->succ = nullptr;
+    _size = 0;
+  }
   ```
 
-  * *第一个能够在最坏情况下保证$O(n\log n)$复杂度的确定性算法*
-  * 
+* **位置代替秩**
+
+  ```c++
+  #define ListNodePos(T) ListNode<T>*
+  
+  template <typename T>
+  T& List<T>::operator[](rank r) const {
+    ListNodePos(T) p = first();
+    while(r--) p = p->succ;
+    return p->data;
+  }
+  ```
+
+* **查找**
+
+  ```c++
+  #define ListNodePos(T) ListNode<T>*
+  
+  template <typename T>
+  ListNodePos(T) List<T>::find(T const&e, int n, ListNodePos(T) p) const {
+    while(n--)
+      if(e == (p = p->pred)->data) return p;
+    return nullptr;
+  }
+  ```
+
+* **插入**
+
+  ```c++
+  #define ListNodePos(T) ListNode<T>*
+  
+  template <typename T>
+  ListNodePos(T) List<T>::insert_as_first(T const&e){
+    _size++;
+    return header->insert_as_succ(e);
+  }
+  
+  template <typename T>
+  ListNodePos(T) List<T>::insert_as_Last(T const&e){
+    _size++;
+    return tail->insert_as_pred(e);
+  }
+  
+  template <typename T>
+  ListNodePos(T) List<T>::insert_before(T const&e, ListNodePos(T) p){
+    _size++;
+    return p->insert_as_pred(e);
+  }
+  
+  template <typename T>
+  ListNodePos(T) List<T>::insert_after(T const&e, ListNodePos(T) p){
+    _size++;
+    return p->insert_as_succ(e);
+  }
+  ```
+
+  * **其中辅助函数为节点本身提供的插入函数**
+
+    ```c++
+    #define ListNodePos(T) ListNode<T>*
+    
+    template <typename T>
+    ListNodePos(T) ListNode<T>::insert_as_succ(T const&e){
+      ListNode<T> new_node = new ListNode<T>(e, pred, this);
+      pred->succ = new_node;
+      this->pred = new_node;
+      return new_node;
+    }
+    
+    template <typename T>
+    ListNodePos(T) ListNode<T>::insert_as_pred(T const&e){
+      ListNode<T> new_node = new ListNode<T>(e, this, succ);
+      this->succ = new_node;
+      succ->pred = new_node;
+      return new_node;
+    }
+    ```
+
+* **复制构造函数**
+
+  ```c++
+  #define ListNodePos(T) ListNode<T>*
+  
+  template <typename T>
+  void List<T>::copy_nodes(ListNodePos(T) p, int n){
+    init();
+    while(n--) { insert_as_last(p->data); p = p->succ;}
+  }
+  
+  template <typename T>
+  List<T>::List(ListNodePos(T) p, int n) {
+  	copy_nodes(p, n);
+  }
+  
+  template <typename T>
+  List<T>::List(List<T> l) {
+  	copy_nodes(l.first(), l._size);
+  }
+  
+  template <typename T>
+  List<T>::List(List<T> l, rank r, int n) {
+  	copy_nodes(l[r], n);
+  }
+  ```
+
+* **删除**
+
+  ```c++
+  template <typename T>
+  T List<T>::remove(ListNodePos(T) p) {
+  	T e = p->data;
+  	(p->pred)->succ = p->succ;
+  	(p->succ)->pred = p->pred;
+  	delete p;
+  	_size--;
+  	return e;
+  }
+  ```
+
+* 
