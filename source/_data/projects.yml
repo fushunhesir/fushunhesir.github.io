@@ -1,0 +1,17 @@
+MIT-6.S081:
+  name: MIT-6.S081
+  title: MIT-6.S081 操作系统入门课程
+  subtitle: '操作系统 | Operating System'
+  tags: [国外课程, 操作系统]
+  cover: true
+  logo:
+    src: https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/MIT-6.S081-logo.jpg
+    small: 112px
+    large: 240px
+  description: MIT-6.S081是MIT的本科操作系统课程,介绍了操作系统的基本概念。并通过完善一个小型操作系统--xv6,深入理解原理。
+  repo: https://github.com/fushunhesir/6.S081.git
+  # comment_title: '评论区仅供交流，有问题请提 [issue](https://github.com/fushunhesir/6.S081/issues) 反馈。'
+  # giscus:
+  #   data-repo: xaoxuu/hexo-theme-stellar
+  #   data-mapping: number
+  #   data-term: 226

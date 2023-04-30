@@ -1,16 +1,9 @@
 ---
-title: MIT 6.S081
-tags: [操作系统,国外课程,系统学习]
-categories: [技术主线,操作系统]
-poster:
-  topic: 标题上方的小字
-  headline: 大标题
-  caption: 标题下方的小字
-  color: 标题颜色
+layout: wiki
+wiki: MIT-6.S081
+title: 首页
 date: 2023-03-16 21:37:59
-description: 计算机操作系统的入门教程
-cover: 
-banner:
+order: 0
 ---
 
 # MIT 6.S081
@@ -437,4 +430,3 @@ banner:
   * 当一个COW页面发生缺页异常，如果此时没有多余的内存，那么选择将该进程杀死。
 * **代码**
   * 
-
