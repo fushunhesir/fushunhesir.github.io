@@ -1,7 +1,7 @@
 ---
 title: Network-Programming
 tags: [计算机网络,网络编程,碎片学习]
-categories: [技术主线,计算机网络,网络编程]
+categories: [技术主线,计算机网络]
 poster:
   topic: 标题上方的小字
   headline: 大标题

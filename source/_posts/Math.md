@@ -1,7 +1,7 @@
 ---
 title: Math
 tags: [数学基础,高数,系统学习]
-categories: [短期支线,考研,数学]
+categories: [短期支线,考研]
 poster:
   topic: 标题上方的小字
   headline: 大标题

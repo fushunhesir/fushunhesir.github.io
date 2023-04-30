@@ -1,7 +1,7 @@
 ---
 title: Data Structure
 tags: [数据结构,基础,系统学习]
-categories: [技术主线,数据结构,基础概念]
+categories: [技术主线,数据结构]
 poster:
   topic: 标题上方的小字
   headline: 大标题

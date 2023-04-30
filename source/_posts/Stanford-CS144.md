@@ -1,7 +1,7 @@
 ---
 title: Stanford CS144
 tags: [计算机网络,国外课程,系统学习]
-categories: [技术主线,计算机网络,Stanford- CS144]
+categories: [技术主线,计算机网络]
 poster:
   topic: 标题上方的小字
   headline: 大标题
@@ -29,4 +29,6 @@ banner:
   5. 退出陷阱，继续正常执行代码
 
 ### RISC-V trap mechinery
+
+![bee-g739b0bdd5_1280](https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E8%9C%9C%E8%9C%82%E5%A4%B4%E5%83%8F.png)
 

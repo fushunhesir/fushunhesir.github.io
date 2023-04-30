@@ -1,7 +1,7 @@
 ---
 title: Machine Learning
 tags: [机器学习,基础,系统学习]
-categories: [技术主线,机器学习,基本概念]
+categories: [技术主线,机器学习]
 poster:
   topic: 标题上方的小字
   headline: 大标题
