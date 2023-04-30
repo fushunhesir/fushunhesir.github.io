@@ -1,7 +1,7 @@
 ---
 title: CMake
-tags: [CMake，碎片化学习]
-categories: [技术主线，编译工具，CMake]
+tags: [CMake,碎片化学习]
+categories: [技术主线,编译工具,CMake]
 poster:
   topic: 标题上方的小字
   headline: 大标题

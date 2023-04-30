@@ -1,7 +1,7 @@
 ---
 title: C++
-tags: [C++，系统学习]
-categories: [技术主线，编程语言，C++]
+tags: [C++,系统学习]
+categories: [技术主线,编程语言,C++]
 poster:
   topic: 标题上方的小字
   headline: 大标题

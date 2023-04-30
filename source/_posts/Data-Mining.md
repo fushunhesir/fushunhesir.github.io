@@ -1,7 +1,7 @@
 ---
 title: Data Mining
-tags: [数据挖掘引论，系统学习]
-categories: [短期支线，大学课程，大三课程]
+tags: [数据挖掘引论,系统学习]
+categories: [短期支线,大学课程,大三课程]
 description: 数据挖掘的基本概念总结
 date: 2023-04-02 13:08:37
 ---

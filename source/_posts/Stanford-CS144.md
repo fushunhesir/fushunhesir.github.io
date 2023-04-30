@@ -1,7 +1,7 @@
 ---
 title: Stanford CS144
-tags: [计算机网络，国外课程，系统学习]
-categories: [技术主线，计算机网络，Stanford- CS144]
+tags: [计算机网络,国外课程,系统学习]
+categories: [技术主线,计算机网络,Stanford- CS144]
 poster:
   topic: 标题上方的小字
   headline: 大标题

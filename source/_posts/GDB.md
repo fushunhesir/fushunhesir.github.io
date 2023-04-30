@@ -1,7 +1,7 @@
 ---
 title: GDB
 tags: [命令行调试]
-categories: [技术主线，调试工具，GDB]
+categories: [技术主线,调试工具,GDB]
 poster:
   topic: 标题上方的小字
   headline: 大标题
