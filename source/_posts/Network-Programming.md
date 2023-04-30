@@ -1,8 +1,16 @@
 ---
 title: Network-Programming
+tags: [计算机网络，网络编程，碎片学习]
+categories: [技术主线，计算机网络，网络编程]
+poster:
+  topic: 标题上方的小字
+  headline: 大标题
+  caption: 标题下方的小字
+  color: 标题颜色
 date: 2023-04-13 10:18:30
-tags: ['course' ,'cs-network']
-category: base-course
+description: 计算机操作系统的入门教程
+cover: 
+banner:
 ---
 
 # 网络编程

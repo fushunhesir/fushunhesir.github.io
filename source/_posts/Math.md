@@ -1,7 +1,16 @@
 ---
 title: Math
+tags: [数学基础，高数，系统学习]
+categories: [短期支线，考研，数学]
+poster:
+  topic: 标题上方的小字
+  headline: 大标题
+  caption: 标题下方的小字
+  color: 标题颜色
 date: 2023-04-02 13:43:01
-tags:
+description: 记录考研数学一的一些概念和理解
+cover: 
+banner:
 ---
 
 # 高等数学

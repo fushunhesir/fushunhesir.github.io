@@ -1,7 +1,16 @@
 ---
 title: Machine Learning
+tags: [机器学习，基础，系统学习]
+categories: [技术主线，机器学习，基本概念]
+poster:
+  topic: 标题上方的小字
+  headline: 大标题
+  caption: 标题下方的小字
+  color: 标题颜色
 date: 2023-04-02 13:15:34
-tags:
+description: 记录机器学习的一些基础概念和应用
+cover: 
+banner:
 ---
 
 # 机器学习

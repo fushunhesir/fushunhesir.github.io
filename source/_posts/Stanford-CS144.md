@@ -1,9 +1,16 @@
 ---
 title: Stanford CS144
+tags: [计算机网络，国外课程，系统学习]
+categories: [技术主线，计算机网络，Stanford- CS144]
+poster:
+  topic: 标题上方的小字
+  headline: 大标题
+  caption: 标题下方的小字
+  color: 标题颜色
 date: 2023-01-30 10:18:30
-tags: ['course' ,'cs-network', 'lab']
-category: base-course
-
+description: 学习Stanford-CS144的记录
+cover: 
+banner:
 ---
 
 # RISCV

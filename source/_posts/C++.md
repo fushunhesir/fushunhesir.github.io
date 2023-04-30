@@ -1,14 +1,14 @@
 ---
 title: C++
-tags: []
-categories: []
+tags: [C++，系统学习]
+categories: [技术主线，编程语言，C++]
 poster:
   topic: 标题上方的小字
   headline: 大标题
   caption: 标题下方的小字
   color: 标题颜色
 date: 2023-04-11 20:41:03
-description:
+description: 学习C++的记录
 cover:
 banner:
 ---
