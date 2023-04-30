@@ -1,26 +1,9 @@
 ---
 layout: wiki
+title: Traps
 wiki: MIT-6.S081
-title: MIT-6.S081
-order: 0
+order: 25
 ---
-
-# MIT 6.S081
-
-## 配置问题
-
-### **本地环境**
-
-* **设备**：*MacBook Air 2020 ( m1 芯片 )*
-* **编译器**：*Apple clang version 14.0.0 (clang-1400.0.29.202)*
-
-### 问题清单
-
-* **无穷递归**
-  * **问题描述**：*error: infinite recursion detected [-Werror=infinite-recursion]*
-  * **解决方法**：在**sh.c**中**runcmd**函数签名上添加*\__attribute__((noreturn))*
-
-## 实验部分
 
 ### Traps
 
@@ -35,40 +18,42 @@ order: 0
 * **预备知识**：汇编语言
 
 * **任务**
+
   * 编译`fs.img`，阅读`call.asm`中的`g`、`f`、`main`函数。回答以下问题并将答案编辑在`answers-traps.txt`文件之中
+
     * 哪些寄存器保存传递给函数的参数，例如：当`main`函数调用`printf`函数时，哪个寄存器保存了13？
-    
+
       $a_0,a_1,a_2$，其中调用`printf`时，$a_2$寄存器保存了13
-    
+
     * 在`main`函数的汇编码中，哪里调用了`f`，`g`这两个函数
-    
+
     * 函数 `printf` 位于什么地址？
-    
+
       `0x616`，在`RISCV`指令中，`auipc`指令一般结合其他跳转指令来执行，因为在`RISCV`指令中无法表示32位的立即数，因此需要用`auipc`指令将一个20位立即数左移12位加上`PC`，存储在目的寄存器中。然后再由接下来的跳转指令用12位立即数填充低12位，最后实现跳转到`PC`附近的32位地址。这里的计算就是：$0x30+1510_{(10)}=0x616$
-    
+
     * 在 `jalr` 到 `main` 中的 `printf` 之后，寄存器 `ra` 中的值是什么？
-    
+
       38，即当前地址+4
-    
+
     * 运行以下代码
-    
+
       ```C
       unsigned int i = 0x00646c72;
       printf("H%x Wo%s", 57616, &i);
       ```
-    
+
       请问输出是什么？(这段代码的输出依赖于RISC-V的小端模式)。若这段代码运行在大端模式的机器中，要使输出相同，应该给$\;i\;$赋什么值？需要将57616改为其他值么？
-    
+
       输出是`Hell0 World`，不用更改`57616`，只需要将`0x00646c72`改为`0x726c6400`
-    
+
     * 在这行代码中
-    
+
       ```C
       printf("x=%d y=%d", 3);
       ```
-    
+
       $y=\;$后面会出现什么数字？(*提示：这个数据不是某个特定的数字*) 为什么会出现这种情况？
-    
+
       y后面的数字是随机的数字，取决于从栈帧中取到a2的垃圾数据
 
 #### 堆栈回溯
@@ -76,13 +61,14 @@ order: 0
 * **背景**：在调试过程中，如果知道在出错点处的堆栈中存在哪些没有返回的函数调用是非常有帮助的
 
 * **任务**
+
   * 在`kernel/printf.c`中实现`backtrace()`函数，并在`sys_sleep`中调用
   * 在`panic`函数中调用`backtrace`，以便在系统崩溃时了解相关信息
-  
+
 * **代码**
-  
+
   * 修改`riscv.h`
-  
+
     ```C
     // read the s0 register
     static inline uint64
@@ -93,9 +79,9 @@ order: 0
       return x;
     }
     ```
-  
+
   * `backtrace()`
-  
+
     ```C
     void
     backtrace(void)
@@ -113,9 +99,9 @@ order: 0
       }
     }
     ```
-  
+
   * `panic(char* s)`
-  
+
     ```C
     void
     panic(char *s)
@@ -130,9 +116,9 @@ order: 0
         ;
     }
     ```
-  
+
   * `sys_sleep`
-  
+
     ```C
     uint64
     sys_sleep(void)
@@ -243,9 +229,9 @@ order: 0
       return 0;
     }
     ```
-  
+
   * 修改`trap.c`
-  
+
     ```c
     if(which_dev == 2){
       if(++p->count >= p->interval) {
@@ -255,9 +241,9 @@ order: 0
       yield();
     }
     ```
-    
+
   * 修改`sysproc.c`
-  
+
     ```c
     uint64
     sys_sigalarm(void)
@@ -272,18 +258,3 @@ order: 0
       return sigalarm(interval, handler);
     }
     ```
-  
-
-### Copy-on-Write
-
-#### 实现写时复制
-
-* **背景**：`fork()`将父进程的所有内存复制到子进程，如果父进程占用内存很大那么复制将会十分耗时，而且如果子进程在调用`fork()`后，直接调用`exec()`那么之前所做的复制都是无效的工作，这是对`CPU`资源的浪费。
-* **任务**
-  * 修改`uvmcopy()`将父进程的物理页面映射到子进程的页表之中。同时将父进程和子进程页表的`PTE`均设置为只读。
-  * 修改`usertrap()`识别COW页面的缺页异常，触发时通过`kalloc()`给子进程分配物理页面，并复制父进程内容，修改`PTE_W`
-  * 确保对没有被任何进程的页表所引用的页面进行回收。可以通过给每个物理页面记录一个`reference count`。当`kalloc()`时将`reference count`设置为1，当`reference count`为0时，调用`kfree()`回收页面。可以使用一个固定大小的整型数组，但是必须计算出合理的数组大小，并设计合理的索引方式。例如，你可以将物理页面地址除以4096作为索引，并通过最高的物理地址来计算出数组的大小。
-  * 修改`copyout()`进行复制，就像遇到缺页异常一样。
-  * 当一个COW页面发生缺页异常，如果此时没有多余的内存，那么选择将该进程杀死。
-* **代码**
-  * 
