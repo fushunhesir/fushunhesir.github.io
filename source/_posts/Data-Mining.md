@@ -1,12 +1,10 @@
 ---
-title: Data Mining
-tags: [数据挖掘引论,系统学习]
-categories: [短期支线,大学课程]
-description: 数据挖掘的基本概念总结
-date: 2023-04-02 13:08:37
+layout: wiki
+title: 数据挖掘引论
+wiki: Notes
+menu_id: notes
+order: 603
 ---
-
-# 数据挖掘
 
 ## 引论
 

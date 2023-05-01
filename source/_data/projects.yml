@@ -9,13 +9,26 @@ MIT-6.S081:
     small: 112px
     large: 240px
   description: MIT-6.S081是MIT的本科操作系统课程,介绍了操作系统的基本概念。并通过完善一个小型操作系统--xv6,深入理解原理。
-  repo: https://github.com/fushunhesir/6.S081
+  repo: fushunhesir/6.S081
   sections:
     '配置问题': [0,0]
     '理论部分': [1,19]
     '实验部分': [20,29]
-  # comment_title: '评论区仅供交流，有问题请提 [issue](https://github.com/fushunhesir/6.S081/issues) 反馈。'
-  # giscus:
-  #   data-repo: xaoxuu/hexo-theme-stellar
-  #   data-mapping: number
-  #   data-term: 226
+  comment_title: '评论区仅供交流，有问题请提 [issue](https://github.com/fushunhesir/6.S081/issues) 反馈。'
+  giscus:
+    data-repo: fushunhesir/6.S081
+    data-mapping: number
+    data-term: 226
+
+Notes:
+  name: 笔记
+  title: 笔记
+  description: 记录个人学习的笔记
+  index: false
+  # sidebar: [toc]
+  sections:
+    '读书笔记': [1,300]
+    '理财笔记': [301, 600]
+    '技术笔记': [601, 700]
+    'C++技术栈笔记': [701, 900]
+    '考研笔记': [901, 910]
