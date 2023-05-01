@@ -23,15 +23,15 @@
   <title>MIT-6.S081：中断和设备驱动 - hiblog</title>
 
   
-    <meta name="description" content="中断和设备驱动 中断是硬件请求CPU处理的机制，驱动是操作系统中与设备交互的程序  硬件  外设：在主板上的各种芯片，以及可以连接到主板的各种设备 PLIC：中断管理设备，接收多个设备的中断信号将其映射为对应的中断号，然后将中断号传给CPU核心，CPU核心根据中断号执行相应的中断处理程序。  PLIC会通知当前有一个待处理的中断 其中一个CPU核会Claim接收中断，这样PLIC就不会把中断发给其">
+    <meta name="description" content="中断是硬件请求CPU处理的机制，驱动是操作系统中与设备交互的程序 硬件 外设：在主板上的各种芯片，以及可以连接到主板的各种设备 PLIC：中断管理设备，接收多个设备的中断信号将其映射为对应的中断号，然后将中断号传给CPU核心，CPU核心根据中断号执行相应的中断处理程序。 PILC具体处理流程   PLIC会通知当前有一个待处理的中断   其中一个CPU核会Claim接收中断，这样PLIC就不会把中">
 <meta property="og:type" content="website">
 <meta property="og:title" content="中断和设备驱动">
 <meta property="og:url" content="http://fushunhesir.github.io/wiki/MIT-6.S081/drivers-interrupts">
 <meta property="og:site_name" content="hiblog">
-<meta property="og:description" content="中断和设备驱动 中断是硬件请求CPU处理的机制，驱动是操作系统中与设备交互的程序  硬件  外设：在主板上的各种芯片，以及可以连接到主板的各种设备 PLIC：中断管理设备，接收多个设备的中断信号将其映射为对应的中断号，然后将中断号传给CPU核心，CPU核心根据中断号执行相应的中断处理程序。  PLIC会通知当前有一个待处理的中断 其中一个CPU核会Claim接收中断，这样PLIC就不会把中断发给其">
+<meta property="og:description" content="中断是硬件请求CPU处理的机制，驱动是操作系统中与设备交互的程序 硬件 外设：在主板上的各种芯片，以及可以连接到主板的各种设备 PLIC：中断管理设备，接收多个设备的中断信号将其映射为对应的中断号，然后将中断号传给CPU核心，CPU核心根据中断号执行相应的中断处理程序。 PILC具体处理流程   PLIC会通知当前有一个待处理的中断   其中一个CPU核会Claim接收中断，这样PLIC就不会把中">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-30T16:13:14.140Z">
-<meta property="article:modified_time" content="2023-04-30T16:13:14.140Z">
+<meta property="article:published_time" content="2023-05-01T06:30:47.172Z">
+<meta property="article:modified_time" content="2023-05-01T06:30:47.172Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
 <meta property="article:tag" content="economy">
@@ -78,12 +78,12 @@
 <div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/MIT-6.S081/index.html"><div class="main" ff="title">MIT-6.S081</div><div class="sub normal cap">操作系统</div><div class="sub hover cap" style="opacity:0"> Operating System</div></a></div></widget>
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/MIT-6.S081/" placeholder="在 /wiki/MIT-6.S081/ 中搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
-<widget class="widget-wrapper ghrepo"><div class="widget-body"><div class="items stellar-ghinfo-api" api="https://api.github.com/repos/https://github.com/fushunhesir/6.S081"><a class="repo" href="https://github.com/https://github.com/fushunhesir/6.S081" target="_blank" rel="external nofollow noopener noreferrer"><div class="repo-name flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>https://github.com/fushunhesir/6.S081</div><div class="repo-desc"><span type="text" id="description">&nbsp;</span></div><div class="grid"><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg><span type="text" id="stargazers_count"></span></div><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span type="text" id="forks_count"></span></div><div class="flex-row stellar-ghinfo-api" index="0" api="https://api.github.com/repos/https://github.com/fushunhesir/6.S081/tags"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg><span type="text" id="latest-tag-name">0</span></div></div></a></div></div></widget>
+<widget class="widget-wrapper ghrepo"><div class="widget-body"><div class="items stellar-ghinfo-api" api="https://api.github.com/repos/fushunhesir/6.S081"><a class="repo" href="https://github.com/fushunhesir/6.S081" target="_blank" rel="external nofollow noopener noreferrer"><div class="repo-name flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>fushunhesir/6.S081</div><div class="repo-desc"><span type="text" id="description">&nbsp;</span></div><div class="grid"><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg><span type="text" id="stargazers_count"></span></div><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span type="text" id="forks_count"></span></div><div class="flex-row stellar-ghinfo-api" index="0" api="https://api.github.com/repos/fushunhesir/6.S081/tags"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg><span type="text" id="latest-tag-name">0</span></div></div></a></div></div></widget>
 
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">MIT-6.S081</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8"><span class="toc-text">中断和设备驱动</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6"><span class="toc-text">硬件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD"><span class="toc-text">中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E7%9B%B8%E5%85%B3%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">中断相关寄存器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8"><span class="toc-text">驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E7%BC%96%E7%A8%8B"><span class="toc-text">设备编程</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div></div></widget>
 
-<widget class="widget-wrapper timeline"><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/https://github.com/fushunhesir/6.S081/issues?per_page=3"></div></div></widget>
+<widget class="widget-wrapper timeline"><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/fushunhesir/6.S081/issues?per_page=3"></div></div></widget>
 
 
 </div>
@@ -97,37 +97,38 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-04-30T16:13:14.140Z">2023-05-01</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-01T06:30:47.172Z">2023-05-01</time></div></div>
 
   <article class='md-text content wiki'>
   <h1 class="article-title"><span>中断和设备驱动</span></h1>
-  <h3 id="中断和设备驱动"><a href="#中断和设备驱动" class="headerlink" title="中断和设备驱动"></a>中断和设备驱动</h3>
-<p><em>中断是硬件请求CPU处理的机制，驱动是操作系统中与设备交互的程序</em></p>
-<ul>
-<li><strong>硬件</strong>
-<ul>
-<li><strong>外设</strong>：在主板上的各种芯片，以及可以连接到主板的各种设备</li>
-<li><code>PLIC</code>：中断管理设备，接收多个设备的中断信号将其映射为对应的<strong>中断号</strong>，然后将中断号传给CPU核心，CPU核心根据中断号执行相应的中断处理程序。
-<ul>
-<li>PLIC会通知当前有一个待处理的中断</li>
-<li>其中一个CPU核会Claim接收中断，这样PLIC就不会把中断发给其他的CPU处理</li>
-<li>CPU核处理完中断之后，CPU会通知PLIC</li>
-<li>PLIC将不再保存中断的信息</li>
-</ul>
+  <p><em>中断是硬件请求CPU处理的机制，驱动是操作系统中与设备交互的程序</em></p>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2>
+<p><strong>外设</strong>：在主板上的各种芯片，以及可以连接到主板的各种设备</p>
+<p><code>PLIC</code>：中断管理设备，接收多个设备的中断信号将其映射为对应的<strong>中断号</strong>，然后将中断号传给CPU核心，CPU核心根据中断号执行相应的中断处理程序。</p>
+<p><code>PILC</code><strong>具体处理流程</strong></p>
+<ol>
+<li>
+<p>PLIC会通知当前有一个待处理的中断</p>
 </li>
-</ul>
+<li>
+<p>其中一个CPU核会Claim接收中断，这样PLIC就不会把中断发给其他的CPU处理</p>
 </li>
-<li><strong>中断</strong>
-<ul>
-<li>仍然利用<code>TRAP</code>机制实现，与<strong>系统调用</strong>和<strong>缺页异常</strong>采用同一种机制实现。但是仍然存在一些<strong>差异</strong>
+<li>
+<p>CPU核处理完中断之后，CPU会通知PLIC</p>
+</li>
+<li>
+<p>PLIC将不再保存中断的信息</p>
+</li>
+</ol>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2>
+<p>仍然利用<code>TRAP</code>机制实现，与<strong>系统调用</strong>和<strong>缺页异常</strong>采用同一种机制实现。但是仍然存在一些<strong>差异</strong></p>
 <ul>
 <li><strong>异步</strong>：中断和当前运行在CPU上的进程没有任何关系。而系统调用需要保存进程上下文。</li>
 <li><strong>并发</strong>：产生中断的外设和CPU是相互独立，同时运行的，是真正的并行运行。例如网卡和CPU</li>
 <li><strong>对设备编程</strong>：中断需要对设备进行编程，控制设备操作。</li>
 </ul>
-</li>
-<li>所有外设都连接到CPU上，通过<code>PLIC</code>(Platform Level Interrupt Control)来管理设备中断，路由中断到某个CPU核心</li>
-<li><strong>中断相关寄存器</strong>
+<p>所有外设都连接到CPU上，通过<code>PLIC</code>(Platform Level Interrupt Control)来管理设备中断，路由中断到某个CPU核心</p>
+<h3 id="中断相关寄存器"><a href="#中断相关寄存器" class="headerlink" title="中断相关寄存器"></a>中断相关寄存器</h3>
 <ul>
 <li><code>SIE</code>：不同的位针对不同中断的使能。分别针对外部设备中断，软件中断使能以及定时器中断使能。</li>
 <li><code>SSTATUS</code>：控制所有中断的使能。<code>SIE</code>和<code>SSTATUS</code>在每个CPU核中都有。</li>
@@ -135,18 +136,12 @@
 <li><code>SCAUSE</code>：保存陷阱的类型</li>
 <li><code>STVEC</code>：保存程序计数器，保证中断、缺页异常或者系统调用结束后，程序能够继续正常执行。</li>
 </ul>
-</li>
-</ul>
-</li>
-<li><strong>驱动</strong>
-<ul>
-<li>管理内核的代码就是驱动，<strong>驱动都在内核中</strong></li>
-<li>驱动的架构一般分为<code>top</code>和<code>bottom</code>两个部分，其中<code>bottom</code>一般是中断处理程序，当某个CPU核心接收中断就会调用该程序。<code>top</code>是提供给用户进程或内核其他部分程序调用的<strong>接口</strong>，例如<code>read()</code>和<code>write()</code></li>
-<li>驱动中包含存储数据的<code>buffer</code>，无论是<code>top</code>还是<code>bottom</code>中的程序都可以对其进行读写。但是由于<code>bottom</code>中的<code>interrupt handler</code>使用内核页表，因为中断例程是独立于进程的，所以不能随意读写数据。</li>
-</ul>
-</li>
-<li><strong>设备编程</strong>：通过<code>I/O</code>端口映射，主板厂商将设备映射到物理地址上，便可以用与读写内存相同的方式对设备进行编程，虽然这些设备并非真实存在<code>RAM</code>中</li>
-</ul>
+<h2 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h2>
+<p><strong>定义</strong>：管理内核的代码就是驱动，<strong>驱动都在内核中</strong>。</p>
+<p><strong>架构</strong>：驱动的架构一般分为<code>top</code>和<code>bottom</code>两个部分，其中<code>bottom</code>一般是中断处理程序，当某个CPU核心接收中断就会调用该程序。<code>top</code>是提供给用户进程或内核其他部分程序调用的<strong>接口</strong>，例如<code>read()</code>和<code>write()</code>。</p>
+<p><strong>读写</strong>：驱动中包含存储数据的<code>buffer</code>，无论是<code>top</code>还是<code>bottom</code>中的程序都可以对其进行读写。但是由于<code>bottom</code>中的<code>interrupt handler</code>使用内核页表，因为中断例程是独立于进程的，所以不能随意读写数据。</p>
+<h2 id="设备编程"><a href="#设备编程" class="headerlink" title="设备编程"></a>设备编程</h2>
+<p>通过<code>I/O</code>端口映射，主板厂商将设备映射到物理地址上，便可以用与读写内存相同的方式对设备进行编程，虽然这些设备并非真实存在<code>RAM</code>中。</p>
 
   
 

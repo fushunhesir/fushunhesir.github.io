@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>笔记：C++网络编程 - hiblog</title>
+
+  
+    <meta name="description" content="Unix哲学——万物皆文件 套接口 流式套接口stream socket 可靠的，面向连接的套接口 报式套接口datagram socket 无连接的套接口 注意  TCP协议允许在传输层对数据进行分段，而UDP则不会，UPD会在发送前在主机上完成分段操作  字节序和数据结构 字节序  大端序：低字节存高位数据，高字节存低位数据 小端序：低字节存地位数据，高字节存高位数据 网络序：网络中采用大端序">
+<meta property="og:type" content="website">
+<meta property="og:title" content="C++网络编程">
+<meta property="og:url" content="http://fushunhesir.github.io/notes/Network-Programming">
+<meta property="og:site_name" content="hiblog">
+<meta property="og:description" content="Unix哲学——万物皆文件 套接口 流式套接口stream socket 可靠的，面向连接的套接口 报式套接口datagram socket 无连接的套接口 注意  TCP协议允许在传输层对数据进行分段，而UDP则不会，UPD会在发送前在主机上完成分段操作  字节序和数据结构 字节序  大端序：低字节存高位数据，高字节存低位数据 小端序：低字节存地位数据，高字节存高位数据 网络序：网络中采用大端序">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-01T06:30:47.172Z">
+<meta property="article:modified_time" content="2023-05-01T06:30:47.172Z">
+<meta property="article:author" content="kevin.hw.he">
+<meta property="article:tag" content="computer science">
+<meta property="article:tag" content="economy">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/蜜蜂头像.jpg">
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">hiblog</div><div class="sub cap">a simple blog</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item active" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="站内搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+
+
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">读书笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/funds"><span class="toc-text">基金基础</span></a></div></div><div class="widget-header cap dis-select"><span class="name">技术笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/Data-Structure"><span class="toc-text">数据结构</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Machine-Learning"><span class="toc-text">机器学习</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Data-Mining"><span class="toc-text">数据挖掘引论</span></a></div></div><div class="widget-header cap dis-select"><span class="name">C++技术栈笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/C++"><span class="toc-text">C++</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Cmake"><span class="toc-text">CMake</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/GDB"><span class="toc-text">GDB</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/Network-Programming"><span class="toc-text">C++网络编程</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%8F%A3"><span class="toc-text">套接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">流式套接口stream socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">报式套接口datagram socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E5%BA%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">字节序和数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="toc-text">字节序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">数据结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">系统调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">getaddrinfo(...)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">socket(...)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">bind(...)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">connect(...)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">listen(...)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">accept(...)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">send(...) &amp; recv(...)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%AD%89%E6%8A%80%E6%9C%AF"><span class="toc-text">高等技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E"><span class="toc-text">阻塞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">select(...)</span></a></li></ol></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">考研笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/Math"><span class="toc-text">数学</span></a></div></div></widget>
+
+
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/notes/">笔记</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/notes/index.html">笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-01T06:30:47.172Z">2023-05-01</time></div></div>
+
+  <article class='md-text content wiki'>
+  <h1 class="article-title"><span>C++网络编程</span></h1>
+  <p><em>Unix哲学——万物皆文件</em></p>
+<h2 id="套接口"><a href="#套接口" class="headerlink" title="套接口"></a>套接口</h2>
+<h3>流式套接口<code>stream socket</code></h3>
+<p><em>可靠的，面向连接的套接口</em></p>
+<h3>报式套接口<code>datagram socket</code></h3>
+<p><em>无连接的套接口</em></p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3>
+<ul>
+<li><em>TCP协议允许在传输层对数据进行分段，而UDP则不会，UPD会在发送前在主机上完成分段操作</em></li>
+</ul>
+<h2 id="字节序和数据结构"><a href="#字节序和数据结构" class="headerlink" title="字节序和数据结构"></a>字节序和数据结构</h2>
+<h3 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h3>
+<ul>
+<li><strong>大端序</strong>：低字节存高位数据，高字节存低位数据</li>
+<li><strong>小端序</strong>：低字节存地位数据，高字节存高位数据</li>
+<li><strong>网络序</strong>：网络中采用大端序</li>
+</ul>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3>
+<ul>
+<li>
+<p><strong>套接口描述符</strong>：本质上就是文件描述符，符合Linux的设计哲学，类型是整型。</p>
+</li>
+<li>
+<p><code>struct addrinfo</code></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">addrinfo</span></span><span class="hl-meta hl-struct hl-c++">
+<span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++">
+  <span class="hl-storage hl-type hl-c">int</span> ai_flags<span class="hl-punctuation hl-terminator hl-c++">;</span>                 <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Input flags.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  <span class="hl-storage hl-type hl-c">int</span> ai_family<span class="hl-punctuation hl-terminator hl-c++">;</span>                <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Protocol family for socket.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  <span class="hl-storage hl-type hl-c">int</span> ai_socktype<span class="hl-punctuation hl-terminator hl-c++">;</span>              <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Socket type.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  <span class="hl-storage hl-type hl-c">int</span> ai_protocol<span class="hl-punctuation hl-terminator hl-c++">;</span>              <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Protocol for socket.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  socklen_t ai_addrlen<span class="hl-punctuation hl-terminator hl-c++">;</span>         <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Length of socket address.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  <span class="hl-storage hl-type hl-c++">struct</span> sockaddr <span class="hl-keyword hl-operator hl-c++">*</span>ai_addr<span class="hl-punctuation hl-terminator hl-c++">;</span>     <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Socket address for socket.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  <span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c++">*</span>ai_canonname<span class="hl-punctuation hl-terminator hl-c++">;</span>           <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Canonical name for service location.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+  <span class="hl-storage hl-type hl-c++">struct</span> addrinfo <span class="hl-keyword hl-operator hl-c++">*</span>ai_next<span class="hl-punctuation hl-terminator hl-c++">;</span>     <span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> Pointer to next in list.  <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+</span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<ul>
+<li>
+<p><code>ai_flag</code>：用于标识 <code>getaddrinfo()</code> 函数返回结果的标志字段，可以设置为以下常量之一或它们的按位或组合。其中AI前缀表示<strong>Address Information</strong></p>
+<ul>
+<li><code>AI_PASSIVE</code>：用于指定用于套接字的地址是通配地址，适用于服务器端程序，表示服务器端将监听所有可用的网络接口。</li>
+<li><code>AI_CANONNAME</code>：用于指定返回的主机名是否是规范名，如果设置了该标志，则 <code>getaddrinfo()</code> 会将主机名转换为其规范名，否则返回的主机名可能是别名。</li>
+<li><code>AI_NUMERICHOST</code>：用于指定主机名必须是一个 IP 地址字符串，而不是一个主机名，如果指定了该标志，则 <code>getaddrinfo()</code> 不会尝试解析主机名。</li>
+<li><code>AI_NUMERICSERV</code>：用于指定服务名必须是一个端口号字符串，而不是一个服务名，如果指定了该标志，则 <code>getaddrinfo()</code> 不会尝试查找服务名。</li>
+<li><code>AI_ADDRCONFIG</code>：用于指定只返回与本地系统的地址族相匹配的地址，例如 IPv4 地址族的系统将只返回 IPv4 地址。</li>
+<li><code>AI_V4MAPPED</code>：用于指定如果没有找到与查询参数完全匹配的 IPv6 地址，那么<code>getaddrinfo()</code>将尝试返回一个 IPv4 映射的 IPv6 地址。</li>
+</ul>
+</li>
+<li>
+<p><code>ai_family</code>：表示协议类别，<code>AF_INET</code>表示<code>IPV4</code>，<code>AF_UNSPEC</code>表示自动判定</p>
+</li>
+<li>
+<p><code>ai_addr</code></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">sockaddr</span></span><span class="hl-meta hl-struct hl-c++"> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++">
+    <span class="hl-storage hl-type hl-c">unsigned</span> <span class="hl-storage hl-type hl-c">short</span> sa_family<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> address family, AF_xxx
+</span>    <span class="hl-storage hl-type hl-c">char</span> sa_data<span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span><span class="hl-constant hl-numeric hl-c++">14</span><span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 14 bytes of protocol address
+</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><strong>通常采用它的等价结构体</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">sockaddr_in</span></span><span class="hl-meta hl-struct hl-c++"> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++">
+    <span class="hl-storage hl-type hl-c">short</span> <span class="hl-storage hl-type hl-c">int</span> sin_family<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Address family, AF_INET
+</span>    <span class="hl-storage hl-type hl-c">unsigned</span> <span class="hl-storage hl-type hl-c">short</span> <span class="hl-storage hl-type hl-c">int</span> sin_port<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Port number
+</span>    <span class="hl-storage hl-type hl-c++">struct</span> in_addr sin_addr<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Internet address
+</span>    <span class="hl-storage hl-type hl-c">unsigned</span> <span class="hl-storage hl-type hl-c">char</span> sin_zero<span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span><span class="hl-constant hl-numeric hl-c++">8</span><span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 與 struct sockaddr 相同的大小
+</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<ul>
+<li>
+<p><code>sin_addr</code></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Internet address (a structure for historical reasons)
+</span><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">in_addr</span></span><span class="hl-meta hl-struct hl-c++"> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++">
+    <span class="hl-support hl-type hl-stdint hl-c">uint32_t</span> s_addr<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> that&#39;s a 32-bit int (4 bytes)
+</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>函数</strong></p>
+<ul>
+<li><code>inet_pton(family, "IP address", &amp;(struct sa.in_addr))</code>：将字符串形式的IP地址转化为字节流存储</li>
+<li><code>inet_ntop(family, &amp;(struct sa.in_addr), buffer'address,len)</code>：将字节流形式的IP地址转化为字符串存储</li>
+</ul>
+</li>
+</ul>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2>
+<h3><code>getaddrinfo(...)</code></h3>
+<p><em>前身是用来做DNS查询的<code>gethostbyname()</code></em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>netdb.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">getaddrinfo</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-modifier hl-c++">const</span> <span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">node</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 例如： &quot;www.example.com&quot; 或 IP
+</span>                <span class="hl-storage hl-modifier hl-c++">const</span> <span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">service</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 例如： &quot;http&quot; 或 port number
+</span>                <span class="hl-storage hl-modifier hl-c++">const</span> <span class="hl-storage hl-type hl-c">struct</span> addrinfo <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">hints</span><span class="hl-punctuation hl-separator hl-c++">,</span>
+                <span class="hl-storage hl-type hl-c">struct</span> addrinfo <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">res</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>hints-&gt;flags</code>：设置为<code>AI_PASSIVE</code>代表将绑定至本机IP，作为监听套接口</p>
+<p><code>res</code>：返回结果</p>
+<p><strong>示例代码</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">int</span> status<span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-storage hl-type hl-c++">struct</span> addrinfo hints<span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-storage hl-type hl-c++">struct</span> addrinfo <span class="hl-keyword hl-operator hl-c++">*</span>servinfo<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 将指向结果
+</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">memset</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> hints</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 确保 struct 为空
+</span>hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AF_UNSPEC<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 不用管是 IPv4 或 IPv6
+</span>hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> SOCK_STREAM<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> TCP stream sockets
+</span>
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 准备好连接
+</span>status <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>www.example.net<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>3490<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>servinfo</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> servinfo 现在指向有一个或多个 struct addrinfos 的链表
+</span>
+我一直说 serinfo 是一个链表，它有各种的地址资料。让我们写一个能快速 demo 的程序，来呈现这个资料。这个小程序 <span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span><span class="hl-constant hl-numeric hl-c++">18</span><span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span> 会打印出你在命令行中所指定的主机 IP address：
+<span class="hl-keyword hl-operator hl-c">*</span><span class="hl-keyword hl-operator hl-c">*</span> showip<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">c</span> <span class="hl-keyword hl-operator hl-arithmetic hl-c">-</span><span class="hl-keyword hl-operator hl-arithmetic hl-c">-</span> 顯示命令列中所給的主機 IP address
+<span class="hl-invalid hl-illegal hl-stray-comment-end hl-c">*/</span>
+<span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>stdio.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>string.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>netdb.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>arpa/inet.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>netinet/in.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">main</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">argc</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">argv</span><span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span><span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-meta hl-function hl-c++">
+</span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++">
+  <span class="hl-storage hl-type hl-c">struct</span> addrinfo hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">*</span>res<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">*</span>p<span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-storage hl-type hl-c">int</span> status<span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-storage hl-type hl-c">char</span> ipstr<span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span>INET6_ADDRSTRLEN<span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+  <span class="hl-keyword hl-control hl-c++">if</span> <span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>argc <span class="hl-keyword hl-operator hl-comparison hl-c">!=</span> <span class="hl-constant hl-numeric hl-c++">2</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+    <span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">fprintf</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">stderr<span class="hl-punctuation hl-separator hl-c++">,</span><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>usage: showip hostname<span class="hl-constant hl-character hl-escape hl-c">\n</span><span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-keyword hl-control hl-c++">return</span> <span class="hl-constant hl-numeric hl-c++">1</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">memset</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> hints</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AF_UNSPEC<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> AF_INET 或 AF_INET6 可以指定版本
+</span>  hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> SOCK_STREAM<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+  <span class="hl-keyword hl-control hl-c++">if</span> <span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>status <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">argv<span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span><span class="hl-constant hl-numeric hl-c++">1</span><span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-language hl-c">NULL</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>res</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-keyword hl-operator hl-comparison hl-c">!=</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+    <span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">fprintf</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">stderr<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>getaddrinfo: <span class="hl-constant hl-other hl-placeholder hl-c">%s</span><span class="hl-constant hl-character hl-escape hl-c">\n</span><span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">gai_strerror</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">status</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-keyword hl-control hl-c++">return</span> <span class="hl-constant hl-numeric hl-c++">2</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">printf</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>IP addresses for <span class="hl-constant hl-other hl-placeholder hl-c">%s</span>:<span class="hl-constant hl-character hl-escape hl-c">\n</span><span class="hl-constant hl-character hl-escape hl-c">\n</span><span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> argv<span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span><span class="hl-constant hl-numeric hl-c++">1</span><span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+  <span class="hl-keyword hl-control hl-c++">for</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>p <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> res<span class="hl-punctuation hl-terminator hl-c++">;</span>p <span class="hl-keyword hl-operator hl-comparison hl-c">!=</span> <span class="hl-constant hl-language hl-c">NULL</span><span class="hl-punctuation hl-terminator hl-c++">;</span> p <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_next</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+    <span class="hl-storage hl-type hl-c">void</span> <span class="hl-keyword hl-operator hl-c">*</span>addr<span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c">*</span>ipver<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+    <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 取得本身地址的指针
+</span>     <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 在 IPv4 与 IPv6 中的栏位不同：
+</span>    <span class="hl-keyword hl-control hl-c++">if</span> <span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span> <span class="hl-keyword hl-operator hl-comparison hl-c">==</span> AF_INET<span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> IPv4
+</span>      <span class="hl-storage hl-type hl-c">struct</span> sockaddr_in <span class="hl-keyword hl-operator hl-c">*</span>ipv4 <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-storage hl-type hl-c">struct</span> sockaddr_in <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addr</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+      addr <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-keyword hl-operator hl-c">&amp;</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>ipv4<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">sin_addr</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+      ipver <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>IPv4<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span> <span class="hl-keyword hl-control hl-c++">else</span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> IPv6
+</span>      <span class="hl-storage hl-type hl-c">struct</span> sockaddr_in6 <span class="hl-keyword hl-operator hl-c">*</span>ipv6 <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-storage hl-type hl-c">struct</span> sockaddr_in6 <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addr</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+      addr <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-keyword hl-operator hl-c">&amp;</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>ipv6<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">sin6_addr</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+      ipver <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>IPv6<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+
+    <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> convert the IP to a string and print it:
+</span>    <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">inet_ntop</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span><span class="hl-punctuation hl-separator hl-c++">,</span> addr<span class="hl-punctuation hl-separator hl-c++">,</span> ipstr<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> ipstr</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">printf</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span> <span class="hl-constant hl-other hl-placeholder hl-c">%s</span>: <span class="hl-constant hl-other hl-placeholder hl-c">%s</span><span class="hl-constant hl-character hl-escape hl-c">\n</span><span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> ipver<span class="hl-punctuation hl-separator hl-c++">,</span> ipstr</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">freeaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">res</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 释放链表
+</span>
+  <span class="hl-keyword hl-control hl-c++">return</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span>
+</span></code></pre>
+<p><strong>结果</strong></p>
+<pre><code><span class="hl-source hl-c++">$ showip www<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">example</span><span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">net</span>
+IP addresses <span class="hl-keyword hl-control hl-c++">for</span> www<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">example</span><span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">net</span><span class="hl-keyword hl-operator hl-ternary hl-c">:</span>
+
+  IPv4<span class="hl-keyword hl-operator hl-ternary hl-c">:</span> <span class="hl-constant hl-numeric hl-c">192.0</span><span class="hl-constant hl-numeric hl-c">.2</span><span class="hl-constant hl-numeric hl-c">.88</span>
+
+$ showip ipv6<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">example</span><span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">com</span>
+IP addresses <span class="hl-keyword hl-control hl-c++">for</span> ipv6<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">example</span><span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">com</span><span class="hl-keyword hl-operator hl-ternary hl-c">:</span>
+
+  IPv4<span class="hl-keyword hl-operator hl-ternary hl-c">:</span> <span class="hl-constant hl-numeric hl-c">192.0</span><span class="hl-constant hl-numeric hl-c">.2</span><span class="hl-constant hl-numeric hl-c">.101</span>
+  IPv6<span class="hl-keyword hl-operator hl-ternary hl-c">:</span> <span class="hl-constant hl-numeric hl-c++">2001</span><span class="hl-keyword hl-operator hl-ternary hl-c">:</span>db8<span class="hl-keyword hl-operator hl-ternary hl-c">:</span>8c00<span class="hl-keyword hl-operator hl-ternary hl-c">:</span><span class="hl-constant hl-numeric hl-c++">22</span>:<span class="hl-keyword hl-operator hl-ternary hl-c">:</span><span class="hl-constant hl-numeric hl-c++">171</span>
+</span></code></pre>
+</li>
+</ul>
+<h3><code>socket(...)</code></h3>
+<p><em>是一个系统调用，返回套接口描述符</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">socket</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">domain</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">type</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">protocol</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>domain</code>：协议家族，<code>PF_INET</code>或者<code>PF_INET6</code></p>
+<p><code>type</code>：<code>socket</code>的种类</p>
+<p><code>protocal</code>：传输层协议</p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">int</span> s<span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">addrinfo</span></span><span class="hl-meta hl-struct hl-c++"> hints, *res</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-keyword hl-operator hl-variadic hl-c">...</span>
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 运行查询
+</span><span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>www.example.com<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>http<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>res</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+s <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">socket</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_protocol</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+</li>
+</ul>
+<h3><code>bind(...)</code></h3>
+<p><em>将socket绑定到指定的IP地址和端口号上</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">bind</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">sockfd</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">struct</span> sockaddr <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">my_addr</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">addrlen</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>socfd</code>：套接字描述符</p>
+<p><code>myaddr</code>：<code>getaddrinfo(...)</code>返回的<code>res</code>中的<code>res-&gt;ai_addr</code></p>
+<p><code>addrlen</code>：<code>getaddrinfo(...)</code>返回的<code>res</code>中的<code>res-&gt;ai_addrlen</code></p>
+<p><strong>示例代码</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">addrinfo</span></span><span class="hl-meta hl-struct hl-c++"> hints, *res</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-storage hl-type hl-c">int</span> sockfd<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 首先，用 getaddrinfo() 载入地址结构：
+</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">memset</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> hints</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AF_UNSPEC<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> use IPv4 or IPv6, whichever
+</span>hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> SOCK_STREAM<span class="hl-punctuation hl-terminator hl-c++">;</span>
+hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_flags</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AI_PASSIVE<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> fill in my IP for me
+</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-constant hl-language hl-c">NULL</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>3490<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>res</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 建立一个 socket：
+</span>
+sockfd <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">socket</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_protocol</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 将 socket bind 到我们传递给 getaddrinfo() 的 port：
+</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">bind</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addr</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addrlen</span></span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+</li>
+</ul>
+<h3><code>connect(...)</code></h3>
+<p><em>连接远端主机</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">connect</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">sockfd</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">struct</span> sockaddr <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">serv_addr</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">addrlen</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>socfd</code>：套接字描述符</p>
+<p><code>serv_addr</code>：<code>getaddrinfo(...)</code>返回的<code>res</code>中的<code>res-&gt;ai_addr</code></p>
+<p><code>addrlen</code>：<code>getaddrinfo(...)</code>返回的<code>res</code>中的<code>res-&gt;ai_addrlen</code></p>
+<p><em><strong>注意</strong></em>：<code>kernel</code> 会帮我们选择一个 <code>local port</code>，因此一般客户端连接的时候不用<code>bind(...)</code></p>
+<p><strong>示例代码</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">addrinfo</span></span><span class="hl-meta hl-struct hl-c++"> hints, *res</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-storage hl-type hl-c">int</span> sockfd<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 首先，用 getaddrinfo() 载入 address structs：
+</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">memset</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> hints</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AF_UNSPEC<span class="hl-punctuation hl-terminator hl-c++">;</span>
+hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> SOCK_STREAM<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>www.example.com<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>3490<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>res</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 建立一个 socket：
+</span>
+sockfd <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">socket</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_protocol</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> connect!
+</span><span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">connect</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addr</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addrlen</span></span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+</li>
+</ul>
+<h3><code>listen(...)</code></h3>
+<p><em>更改此套接口的状态为监听状态</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">listen</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">sockfd</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">backlog</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>backlog</code>：代表连接此套接口队列的最大长度</p>
+<p><strong>一般调用顺序</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">socket</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">bind</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">listen</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-comment hl-block hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">/*</span> accept() 从这里开始 <span class="hl-punctuation hl-definition hl-comment hl-c">*/</span></span>
+</span></code></pre>
+</li>
+</ul>
+<h3><code>accept(...)</code></h3>
+<p><em>创建一个新的<code>socket</code>来处理进行对话</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">accept</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">sockfd</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">struct</span> sockaddr <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">addr</span><span class="hl-punctuation hl-separator hl-c++">,</span> socklen_t <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">addrlen</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>addr</code>：存放连接？？？</p>
+<p><strong>示例代码</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>string.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/socket.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>netinet/in.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-meta hl-preprocessor hl-macro hl-c++"><span class="hl-keyword hl-control hl-import hl-define hl-c++">#define</span></span><span class="hl-meta hl-preprocessor hl-macro hl-c++"> <span class="hl-entity hl-name hl-constant hl-preprocessor hl-c++">MYPORT</span></span><span class="hl-meta hl-preprocessor hl-macro hl-c++"> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>3490<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 使用者将连接的 port</span></span>
+<span class="hl-meta hl-preprocessor hl-macro hl-c++"><span class="hl-keyword hl-control hl-import hl-define hl-c++">#define</span></span><span class="hl-meta hl-preprocessor hl-macro hl-c++"> <span class="hl-entity hl-name hl-constant hl-preprocessor hl-c++">BACKLOG</span></span><span class="hl-meta hl-preprocessor hl-macro hl-c++"> <span class="hl-constant hl-numeric hl-c++">10</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 在队列中可以有多少个连接在等待</span></span>
+
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">main</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c++">void</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-meta hl-function hl-c++">
+</span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++">
+　　<span class="hl-storage hl-type hl-c">struct</span> sockaddr_storage their_addr<span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　socklen_t addr_size<span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　<span class="hl-storage hl-type hl-c">struct</span> addrinfo hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">*</span>res<span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　<span class="hl-storage hl-type hl-c">int</span> sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> new_fd<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+　　<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> !! 不要忘了帮这些调用做错误检查 !!
+</span>
+　　<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 首先，使用 getaddrinfo() 载入 address struct：
+</span>
+　　<span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">memset</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> hints</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AF_UNSPEC<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 使用 IPv4 或 IPv6，都可以
+</span>　　hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> SOCK_STREAM<span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　hints<span class="hl-punctuation hl-accessor hl-dot hl-c++">.</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_flags</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> AI_PASSIVE<span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 帮我填上我的 IP 
+</span>
+　　<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">getaddrinfo</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-constant hl-language hl-c">NULL</span><span class="hl-punctuation hl-separator hl-c++">,</span> MYPORT<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>hints<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>res</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+　　<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 产生一个 socket，bind socket，并 listen socket：
+</span>
+　　sockfd <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">socket</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_family</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_socktype</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_protocol</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">bind</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addr</span><span class="hl-punctuation hl-separator hl-c++">,</span> res<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">ai_addrlen</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　<span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">listen</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> BACKLOG</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+　　<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 现在接受一个进入的连接：
+</span>
+　　addr_size <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-keyword hl-operator hl-word hl-c">sizeof</span> their_addr<span class="hl-punctuation hl-terminator hl-c++">;</span>
+　　new_fd <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">accept</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-storage hl-type hl-c">struct</span> sockaddr <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span><span class="hl-keyword hl-operator hl-c">&amp;</span>their_addr<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>addr_size</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+　　<span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> 准备好与 new_fd 这个 socket descriptor 进行沟通！
+</span>　　<span class="hl-keyword hl-operator hl-variadic hl-c">...</span>
+</span></span></span></code></pre>
+</li>
+</ul>
+<h3><code>send(...) &amp; recv(...)</code></h3>
+<p><em>和远端主机通信</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">send</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">sockfd</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-modifier hl-c++">const</span> <span class="hl-storage hl-type hl-c++">void</span> <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">msg</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">len</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">flags</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>msg</code>：发送的信息</p>
+<p><code>len</code>：发送的长度</p>
+<p><code>flags</code>：一般设置为0即可</p>
+<p><strong>注意</strong>：<code>send(...)</code>只会尽量将资料送出，并认为你之後会再次送出剩下没送出的部分，因此它不能保证送完数据</p>
+<p><strong>示例代码</strong></p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c++">*</span>msg <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>Beej was here!<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-storage hl-type hl-c">int</span> len<span class="hl-punctuation hl-separator hl-c++">,</span> bytes_sent<span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+len <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-support hl-function hl-C99 hl-c">strlen</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">msg</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+bytes_sent <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">send</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">sockfd<span class="hl-punctuation hl-separator hl-c++">,</span> msg<span class="hl-punctuation hl-separator hl-c++">,</span> len<span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">0</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+</li>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">recv</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">sockfd</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c++">void</span> <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">buf</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">len</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">flags</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p><code>buf</code>：接收消息的缓冲区</p>
+<p><code>len</code>：发送的长度</p>
+<p><code>flags</code>：一般设置为0即可</p>
+<p><strong>注意</strong>： <code>recv(...)</code>会返回 0，这表示远端主机已经关闭了连接</p>
+</li>
+</ul>
+<h2 id="高等技术"><a href="#高等技术" class="headerlink" title="高等技术"></a>高等技术</h2>
+<h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3>
+<p><em>阻塞就是线程在某一条语句中sleep</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c"><span class="hl-meta hl-preprocessor hl-include hl-c"><span class="hl-keyword hl-control hl-import hl-include hl-c">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&lt;</span>unistd.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c"><span class="hl-keyword hl-control hl-import hl-include hl-c">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&lt;</span>fcntl.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&gt;</span></span>
+</span>
+sockfd <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c"><span class="hl-variable hl-function hl-c">socket</span><span class="hl-meta hl-group hl-c"><span class="hl-punctuation hl-section hl-group hl-begin hl-c">(</span></span></span><span class="hl-meta hl-function-call hl-c"><span class="hl-meta hl-group hl-c">PF_INET<span class="hl-punctuation hl-separator hl-c">,</span> SOCK_STREAM<span class="hl-punctuation hl-separator hl-c">,</span> <span class="hl-constant hl-numeric hl-c">0</span></span></span><span class="hl-meta hl-function-call hl-c"><span class="hl-meta hl-group hl-c"><span class="hl-punctuation hl-section hl-group hl-end hl-c">)</span></span></span><span class="hl-punctuation hl-terminator hl-c">;</span>
+<span class="hl-meta hl-function-call hl-c"><span class="hl-variable hl-function hl-c">fcntl</span><span class="hl-meta hl-group hl-c"><span class="hl-punctuation hl-section hl-group hl-begin hl-c">(</span></span></span><span class="hl-meta hl-function-call hl-c"><span class="hl-meta hl-group hl-c">sockfd<span class="hl-punctuation hl-separator hl-c">,</span> F_SETFL<span class="hl-punctuation hl-separator hl-c">,</span> O_NONBLOCK</span><span class="hl-meta hl-group hl-c"><span class="hl-punctuation hl-section hl-group hl-end hl-c">)</span></span></span><span class="hl-punctuation hl-terminator hl-c">;</span>
+</span></code></pre>
+<p><code>fcntl</code>：使阻塞函数成为非阻塞函数</p>
+</li>
+</ul>
+<h3><code>select(...)</code></h3>
+<p><em>同时监听多个套接口</em></p>
+<ul>
+<li>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/time.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>sys/types.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span><span class="hl-meta hl-preprocessor hl-include hl-c++"><span class="hl-keyword hl-control hl-import hl-include hl-c++">#include</span> <span class="hl-string hl-quoted hl-other hl-lt-gt hl-include hl-c++"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c++">&lt;</span>unistd.h<span class="hl-punctuation hl-definition hl-string hl-end hl-c++">&gt;</span></span>
+</span>
+<span class="hl-storage hl-type hl-c">int</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">select</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">int</span> <span class="hl-variable hl-parameter hl-c++">numfds</span><span class="hl-punctuation hl-separator hl-c++">,</span> fd_set <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">readfds</span><span class="hl-punctuation hl-separator hl-c++">,</span> fd_set <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">writefds</span><span class="hl-punctuation hl-separator hl-c++">,</span>
+           fd_set <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">exceptfds</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-storage hl-type hl-c">struct</span> timeval <span class="hl-keyword hl-operator hl-c">*</span><span class="hl-variable hl-parameter hl-c++">timeout</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+</li>
+</ul>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/notes/GDB">GDB</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/notes/Math">数学</a></div></section></div>
+
+  
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.18.5';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.18.5';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
