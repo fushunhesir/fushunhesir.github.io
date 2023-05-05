@@ -1,9 +1,16 @@
 ---
-layout: wiki
-title: 数据挖掘引论
-wiki: Notes
-menu_id: notes
-order: 603
+title: 数据挖掘
+tags: [数据挖掘]
+categories: [课程笔记]
+poster:
+  topic: 标题上方的小字
+  headline: 大标题
+  caption: 标题下方的小字
+  color: 标题颜色
+date: 2023-05-01 14:01:34
+description: 数据挖掘是指从大量的数据中通过算法搜索隐藏于其中信息的过程。
+cover:
+banner:
 ---
 
 ## 引论
