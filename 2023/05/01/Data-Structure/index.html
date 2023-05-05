@@ -20,23 +20,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>笔记：数据结构 - hiblog</title>
+  <title>数据结构 - hiblog</title>
 
   
-    <meta name="description" content="数据结构 绪论 数据结构基本概念  基本概念和术语  数据：不是简单指数字，而是代指一切能够输入计算机内部的符号，并且该符号承载了信息以及事物的属性 数据元素：是一个整体结构，内部包含数据项，数据项是组成数据元素的最小单位。比如：学生（学号、姓名、班级） 数据对象：具有相同性质的数据元素的集合，如：数据库中元组和关系，元组是数据元素，关系是数据对象 数据类型  原子类型：不可再分的类型，如：基本数">
-<meta property="og:type" content="website">
+    <meta name="description" content="数据结构学习记录。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="数据结构">
-<meta property="og:url" content="http://fushunhesir.github.io/notes/Data-Structure">
+<meta property="og:url" content="http://fushunhesir.github.io/2023/05/01/Data-Structure/index.html">
 <meta property="og:site_name" content="hiblog">
-<meta property="og:description" content="数据结构 绪论 数据结构基本概念  基本概念和术语  数据：不是简单指数字，而是代指一切能够输入计算机内部的符号，并且该符号承载了信息以及事物的属性 数据元素：是一个整体结构，内部包含数据项，数据项是组成数据元素的最小单位。比如：学生（学号、姓名、班级） 数据对象：具有相同性质的数据元素的集合，如：数据库中元组和关系，元组是数据元素，关系是数据对象 数据类型  原子类型：不可再分的类型，如：基本数">
+<meta property="og:description" content="数据结构学习记录。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/DS_vector_interface.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E5%88%97%E8%A1%A8%E7%BB%93%E6%9E%84.png">
-<meta property="article:published_time" content="2023-05-03T13:18:04.197Z">
-<meta property="article:modified_time" content="2023-05-03T13:18:04.197Z">
+<meta property="article:published_time" content="2023-05-01T06:01:34.000Z">
+<meta property="article:modified_time" content="2023-05-05T01:39:58.958Z">
 <meta property="article:author" content="kevin.hw.he">
-<meta property="article:tag" content="computer science">
-<meta property="article:tag" content="economy">
+<meta property="article:tag" content="计算机">
+<meta property="article:tag" content="考研">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/DS_vector_interface.png">
   
@@ -70,24 +70,22 @@
 
 
   <div class='l_body' id='start'>
-    <aside class='l_left' layout='wiki'>
+    <aside class='l_left' layout='post'>
     
 
   
 
 <header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">hiblog</div><div class="sub cap">a simple blog</div></a></div>
 
-<nav class="menu dis-select"><a class="nav-item" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item active" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">项目</a><a class="nav-item" href="/notes/">笔记</a><a class="nav-item" href="/more/">更多</a></nav>
 </header>
 
 
 <div class="widgets">
-<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="站内搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
 
-
-
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">读书笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/funds"><span class="toc-text">基金基础</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/self-control"><span class="toc-text">自控力</span></a></div></div><div class="widget-header cap dis-select"><span class="name">技术笔记</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/Data-Structure"><span class="toc-text">数据结构</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">数据结构基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F"><span class="toc-text">复杂度度量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F"><span class="toc-text">向量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%95%B0%E7%BB%84%E5%88%B0%E5%90%91%E9%87%8F"><span class="toc-text">从数组到向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84"><span class="toc-text">构造与析构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="toc-text">动态空间管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%90%91%E9%87%8F"><span class="toc-text">常规向量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8%E5%85%83%E7%B4%A0"><span class="toc-text">直接引用元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%AE%E4%B9%B1%E7%AE%97%E6%B3%95"><span class="toc-text">置乱算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="toc-text">顺序查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-text">插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-text">删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E5%8C%96"><span class="toc-text">唯一化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E5%90%91%E9%87%8F"><span class="toc-text">有序向量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E5%8C%96-1"><span class="toc-text">唯一化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE"><span class="toc-text">查找</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E4%B8%8E%E4%B8%8B%E7%95%8C"><span class="toc-text">排序与下界</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B6%E5%88%86%E7%B1%BB"><span class="toc-text">排序及其分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E6%A0%91"><span class="toc-text">比较树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%99%A8"><span class="toc-text">排序器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="toc-text">无序列表</span></a></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Machine-Learning"><span class="toc-text">机器学习</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Data-Mining"><span class="toc-text">数据挖掘引论</span></a></div></div><div class="widget-header cap dis-select"><span class="name">C++笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/C++"><span class="toc-text">C++</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Cmake"><span class="toc-text">CMake</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/GDB"><span class="toc-text">GDB</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/Network-Programming"><span class="toc-text">C++网络编程</span></a></div></div><div class="widget-header cap dis-select"><span class="name">考研笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/Math"><span class="toc-text">数学</span></a></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">数据结构</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">数据结构基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BA%A6%E9%87%8F"><span class="toc-text">复杂度度量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E9%87%8F"><span class="toc-text">向量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%95%B0%E7%BB%84%E5%88%B0%E5%90%91%E9%87%8F"><span class="toc-text">从数组到向量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-text">接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E4%B8%8E%E6%9E%90%E6%9E%84"><span class="toc-text">构造与析构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="toc-text">动态空间管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E5%90%91%E9%87%8F"><span class="toc-text">常规向量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E5%BC%95%E7%94%A8%E5%85%83%E7%B4%A0"><span class="toc-text">直接引用元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%AE%E4%B9%B1%E7%AE%97%E6%B3%95"><span class="toc-text">置乱算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="toc-text">顺序查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5"><span class="toc-text">插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-text">删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E5%8C%96"><span class="toc-text">唯一化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E5%90%91%E9%87%8F"><span class="toc-text">有序向量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%94%AF%E4%B8%80%E5%8C%96-1"><span class="toc-text">唯一化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE"><span class="toc-text">查找</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E4%B8%8E%E4%B8%8B%E7%95%8C"><span class="toc-text">排序与下界</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B6%E5%88%86%E7%B1%BB"><span class="toc-text">排序及其分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E6%A0%91"><span class="toc-text">比较树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%99%A8"><span class="toc-text">排序器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8"><span class="toc-text">无序列表</span></a></li></ol></li></ol></div></div></widget>
 
 
 
@@ -101,13 +99,12 @@
 
       
 
-  
-  
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/notes/">笔记</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/notes/index.html">笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-03T13:18:04.197Z">2023-05-03</time></div></div>
 
-  <article class='md-text content wiki'>
-  <h1 class="article-title"><span>数据结构</span></h1>
-  <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/">基础课程</a></div><div id="post-meta">发布于&nbsp;<time datetime="2023-05-01T06:01:34.000Z">2023-05-01</time></div></div>
+
+<article class='md-text content post'>
+<h1 class="article-title"><span>数据结构</span></h1>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1>
 <h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2>
 <h3 id="数据结构基本概念"><a href="#数据结构基本概念" class="headerlink" title="数据结构基本概念"></a>数据结构基本概念</h3>
 <ul>
@@ -626,14 +623,17 @@ T <span class="hl-meta hl-function hl-c++">List<span class="hl-punctuation hl-se
 <li></li>
 </ul>
 
-  
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2023/05/01/Data-Mining/">数据挖掘</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2023/05/01/GDB/">GDB</a></div></section></div>
 
 
-  </article>
-  
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/notes/self-control">自控力</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/notes/Machine-Learning">机器学习</a></div></section></div>
 
-  
+
 
 
 
