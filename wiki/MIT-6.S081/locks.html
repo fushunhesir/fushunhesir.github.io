@@ -30,8 +30,8 @@
 <meta property="og:site_name" content="hiblog">
 <meta property="og:description" content="锁存在的目的是解决并发问题。操作系统之所以面对并发问题，是因为物理硬件的共享。现代的计算机一般是多核心，可以独立执行指令，他们共享着物理内存，因此存在着对同一块内存，一颗核心进行读，另外一颗核心进行写的情况。甚至多个核心同时写的情况。除此之外，即使只有一颗核心也需要应对多个线程切换，交错运行的场景。 并发是指由于多核并行、线程切换或中断导致的多指令流交替执行的情况 内核设计会允许大量的并发，以此来">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-06T13:38:15.398Z">
-<meta property="article:modified_time" content="2023-05-06T13:38:15.398Z">
+<meta property="article:published_time" content="2023-05-08T06:37:19.403Z">
+<meta property="article:modified_time" content="2023-05-08T06:37:19.403Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
 <meta property="article:tag" content="economy">
@@ -97,12 +97,12 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-06T13:38:15.398Z">2023-05-06</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-08T06:37:19.403Z">2023-05-08</time></div></div>
 
   <article class='md-text content wiki'>
   <h1 class="article-title"><span>锁机制</span></h1>
   <p>锁存在的目的是解决并发问题。操作系统之所以面对并发问题，是因为物理硬件的共享。现代的计算机一般是多核心，可以独立执行指令，他们共享着物理内存，因此存在着对同一块内存，一颗核心进行读，另外一颗核心进行写的情况。甚至多个核心同时写的情况。除此之外，即使只有一颗核心也需要应对多个线程切换，交错运行的场景。</p>
-<p><strong>并发是指由于多核并行、线程切换或中断导致的多指令流交替执行的情况</strong></p>
+<p><em>并发是指由于多核并行、线程切换或中断导致的多指令流交替执行的情况</em></p>
 <p>内核设计会允许大量的并发，以此来提高系统的性能。由此催生了以并发下正确性为目的的<strong>并发控制技术</strong>。</p>
 <p><em>锁提供互斥，只有持有锁的CPU能够对该数据区进行操作，确保了对数据操作的正确性。但是它会限制系统性能，因为锁会序列化并发操作。</em></p>
 <h2 id="竞争条件"><a href="#竞争条件" class="headerlink" title="竞争条件"></a>竞争条件</h2>
@@ -125,7 +125,54 @@
 </span></code></pre>
 <p>这里<code>acquire()</code>和<code>release()</code>之间的区域也称为<strong>临界区</strong>。</p>
 <p>通常所说的锁保护了数据，实际上是锁保护了对象的不变性质。比如在上述的<code>push()</code>中，<code>list</code>的性质是始终指向列表的表头，但是当执行完<code>l-&gt;next = list</code>后，这个不变性被暂时破坏了，如果有其他依赖于这个不变特性的指令在另外一个CPU并发执行，就会引起错误。所以锁实际上是保护了这样一种不变特性。</p>
-<p>如果多个CPU同时请求锁会引发锁的竞争，在真实的操作系统中设计了数据结构和算法来避免锁的竞争，</p>
+<p><strong>锁虽然能够保证代码的正确性，但是同时也会损失性能，从而失去多CPU运行的优势</strong>。同时，如果多个CPU同时请求锁会产生对锁的竞争，因此在真实的操作系统中设计了特殊的数据结构和算法来避免锁的竞争。</p>
+<p>在<code>xv6</code>中存在两种锁，一种叫<code>spinlock</code>，另外一种叫<code>sleep-lock</code>。</p>
+<p><code>spinlock</code>是互斥锁，结构如下：</p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Mutual exclusion lock.
+</span><span class="hl-meta hl-struct hl-c++"><span class="hl-storage hl-type hl-c++">struct</span> <span class="hl-entity hl-name hl-struct hl-c++">spinlock</span></span><span class="hl-meta hl-struct hl-c++"> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++">
+  <span class="hl-support hl-type hl-sys-types hl-c">uint</span> locked<span class="hl-punctuation hl-terminator hl-c++">;</span>       <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Is the lock held?
+</span>
+  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> For debugging:
+</span>  <span class="hl-storage hl-type hl-c">char</span> <span class="hl-keyword hl-operator hl-c++">*</span>name<span class="hl-punctuation hl-terminator hl-c++">;</span>        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Name of lock.
+</span>  <span class="hl-storage hl-type hl-c++">struct</span> cpu <span class="hl-keyword hl-operator hl-c++">*</span>cpu<span class="hl-punctuation hl-terminator hl-c++">;</span>   <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> The cpu holding the lock.
+</span></span></span><span class="hl-meta hl-struct hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></code></pre>
+<p>其中<code>locked</code>字段为0时表示该锁可获取，当该字段非零时，表示该锁已经被其他进程占有。</p>
+<p>当进程想要申请锁的时候，我们一般会想到这样的函数：</p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">void</span> <span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">acquire</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">struct</span> spinlock<span class="hl-keyword hl-operator hl-c">*</span> <span class="hl-variable hl-parameter hl-c++">lk</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++">
+	<span class="hl-keyword hl-control hl-c++">for</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-punctuation hl-terminator hl-c++">;</span><span class="hl-punctuation hl-terminator hl-c++">;</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+		<span class="hl-keyword hl-control hl-c++">if</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>lk<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">locked</span> <span class="hl-keyword hl-operator hl-comparison hl-c">==</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+			lk<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">locked</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-constant hl-numeric hl-c++">1</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+			<span class="hl-keyword hl-control hl-c++">break</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+		<span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+	<span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+</span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span>
+</span></code></pre>
+<p>但是这段代码在一些情况下会发生错误。比如当两个运行在不同CPU上的进程同时申请锁的时候，可能同时进行<code>if</code>检测。这样两个进程都申请到了锁，这就违背了互斥的原则。所以我们想通过某种方式让<strong>申请锁的过程保持原子性</strong>。通常在多核处理器上设计了<strong>内存和寄存器直接交换数据</strong>的汇编指令来实现原子性。在<code>xv6</code>中实现如下：</p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">acquire</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c">struct</span> spinlock <span class="hl-keyword hl-operator hl-c">*</span>lk</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span>
+<span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">push_off</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> disable interrupts to avoid deadlock.
+</span>  <span class="hl-keyword hl-control hl-c++">if</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">holding</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++">lk</span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span>
+    <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">panic</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-string hl-quoted hl-double hl-c"><span class="hl-punctuation hl-definition hl-string hl-begin hl-c">&quot;</span>acquire<span class="hl-punctuation hl-definition hl-string hl-end hl-c">&quot;</span></span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> On RISC-V, sync_lock_test_and_set turns into an atomic swap:
+</span>  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span>   a5 = 1
+</span>  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span>   s1 = &amp;lk-&gt;locked
+</span>  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span>   amoswap.w.aq a5, a5, (s1)
+</span>  <span class="hl-keyword hl-control hl-c++">while</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">__sync_lock_test_and_set</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>lk<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">locked</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-constant hl-numeric hl-c++">1</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span> <span class="hl-keyword hl-operator hl-comparison hl-c">!=</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span>
+    <span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Tell the C compiler and the processor to not move loads or stores
+</span>  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> past this point, to ensure that the critical section&#39;s memory
+</span>  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> references happen strictly after the lock is acquired.
+</span>  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> On RISC-V, this emits a fence instruction.
+</span>  <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">__sync_synchronize</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Record info about lock acquisition for holding() and debugging.
+</span>  lk<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">cpu</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">mycpu</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+<span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+</span></code></pre>
+<p>我们不断通过原子操作去将<code>lk-&gt;locked</code>字段置 1 ，如果原来该字段的值为 1 那么我们置 1 并没有什么影响，但是如果原来为 0 ，我们就可以将该字段置为 1 并获得该锁。释放锁同样也是采用类似的方法实现的。</p>
 
   
 
