@@ -1,5 +1,5 @@
 ---
-title: CMake
+title: C++
 tags: [编程语言]
 categories: [C++]
 poster:
