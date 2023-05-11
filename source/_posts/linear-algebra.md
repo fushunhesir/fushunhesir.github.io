@@ -288,4 +288,45 @@ banner:
 
   $\beta$可用$(\alpha_1,\alpha_2...\alpha_n)$唯一线性表示$\Leftrightarrow r(\alpha_1,\alpha_2...\alpha_n,\beta)=r(\alpha_1,\alpha_2...\alpha_n)=n$
 
+  若两个齐次线性方程组同解，那么这两个系数矩阵有相同线性关系。
   
+  若一个矩阵经过初等行变换，变换为另外一个矩阵，这两个矩阵具有相同线性关系。
+  
+* **矩阵的秩**
+
+  行向量组的秩和列向量组的秩相同。
+
+  n阶矩阵满秩$\Leftrightarrow$行(列)向量组线性无关$\Leftrightarrow$|A|$\ne$0$\Leftrightarrow$A可逆。
+
+  由于初等行变换后的矩阵仍然与原向量保持相同的线性关系，因此秩相同。
+  
+  $r(A)=r(A^T)$
+  
+  $r(cA)=r(A)$
+  
+  $r(A+B)\le r(A)+r(B)$
+  
+  $r(AB)\le min\{r(A),r(B)\}$
+  
+  若A可逆，那么$r(AB)=r(B)$
+  
+  若B可逆，那么$r(AB)=r(A)$
+  
+  若A列满秩，那么$r(AB)=r(B)$
+  
+  若B行满秩，那么$r(AB)=r(A)$
+  
+  若$AB=0$那么$r(A)+r(B)\le n$，$n$为A的列数
+  
+  伴随矩阵：
+  $$
+  r(A^*)=\left\{  
+               \begin{array}{**lr**}  
+               n, &  r(A)=n\\  
+               1, &  r(A)=n-1\\  
+               0, &  r(A)<n-1  
+               \end{array}  
+  \right.
+  $$
+  
+* 
