@@ -23,16 +23,16 @@
   <title>MIT-6.S081：调度 - hiblog</title>
 
   
-    <meta name="description" content="操作系统运行中同时运行的进程通常比核心的数量多，那么这些进程是怎样“同时”运行的呢？操作系统给这些进程提供了怎样的抽象呢？操作系统如何实现这个抽象的呢？ 复用 xv6在两种情况下会发生进程切换，第一种是当IO操作完成时，存在等待它的进程，sleep-wakeup机制会进行进程切换；第二种是一个进程的时间片到时。 这样就给每一个进程提供了CPU的抽象。宏观上来看，似乎每个进程都有自己独占的CPU，就">
+    <meta name="description" content="操作系统运行中同时运行的进程通常比核心的数量多，那么这些进程是怎样“同时”运行的呢？操作系统给这些进程提供了怎样的抽象呢？操作系统如何实现这个抽象的呢？ 复用 xv6在两种情况下会发生进程切换，第一种是当IO操作完成时，存在等待它的进程，sleep-wakeup机制会进行进程切换；第二种是一个进程的时间片到时。 这样就给每一个进线提供了CPU的抽象。宏观上来看，似乎每个线程都有自己独占的CPU，就">
 <meta property="og:type" content="website">
 <meta property="og:title" content="调度">
 <meta property="og:url" content="http://fushunhesir.github.io/wiki/MIT-6.S081/scheduling">
 <meta property="og:site_name" content="hiblog">
-<meta property="og:description" content="操作系统运行中同时运行的进程通常比核心的数量多，那么这些进程是怎样“同时”运行的呢？操作系统给这些进程提供了怎样的抽象呢？操作系统如何实现这个抽象的呢？ 复用 xv6在两种情况下会发生进程切换，第一种是当IO操作完成时，存在等待它的进程，sleep-wakeup机制会进行进程切换；第二种是一个进程的时间片到时。 这样就给每一个进程提供了CPU的抽象。宏观上来看，似乎每个进程都有自己独占的CPU，就">
+<meta property="og:description" content="操作系统运行中同时运行的进程通常比核心的数量多，那么这些进程是怎样“同时”运行的呢？操作系统给这些进程提供了怎样的抽象呢？操作系统如何实现这个抽象的呢？ 复用 xv6在两种情况下会发生进程切换，第一种是当IO操作完成时，存在等待它的进程，sleep-wakeup机制会进行进程切换；第二种是一个进程的时间片到时。 这样就给每一个进线提供了CPU的抽象。宏观上来看，似乎每个线程都有自己独占的CPU，就">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E5%A4%8D%E7%94%A8.png">
-<meta property="article:published_time" content="2023-05-15T14:03:57.840Z">
-<meta property="article:modified_time" content="2023-05-15T14:03:57.840Z">
+<meta property="article:published_time" content="2023-05-16T14:15:23.768Z">
+<meta property="article:modified_time" content="2023-05-16T14:15:23.768Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
 <meta property="article:tag" content="economy">
@@ -83,7 +83,7 @@
 <widget class="widget-wrapper ghrepo"><div class="widget-body"><div class="items stellar-ghinfo-api" api="https://api.github.com/repos/fushunhesir/6.S081"><a class="repo" href="https://github.com/fushunhesir/6.S081" target="_blank" rel="external nofollow noopener noreferrer"><div class="repo-name flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>fushunhesir/6.S081</div><div class="repo-desc"><span type="text" id="description">&nbsp;</span></div><div class="grid"><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg><span type="text" id="stargazers_count"></span></div><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span type="text" id="forks_count"></span></div><div class="flex-row stellar-ghinfo-api" index="0" api="https://api.github.com/repos/fushunhesir/6.S081/tags"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg><span type="text" id="latest-tag-name">0</span></div></div></a></div></div></widget>
 
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/locks"><span class="toc-text">锁机制</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/scheduling"><span class="toc-text">调度</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E7%94%A8"><span class="toc-text">复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">上下文切换</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/locks"><span class="toc-text">锁机制</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/scheduling"><span class="toc-text">调度</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E7%94%A8"><span class="toc-text">复用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">上下文切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B5%81%E7%A8%8B"><span class="toc-text">代码流程</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/fushunhesir/6.S081/issues?per_page=3"></div></div></widget>
 
@@ -99,14 +99,14 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-15T14:03:57.840Z">2023-05-15</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-16T14:15:23.768Z">2023-05-16</time></div></div>
 
   <article class='md-text content wiki'>
   <h1 class="article-title"><span>调度</span></h1>
   <p>操作系统运行中同时运行的进程通常比核心的数量多，那么这些进程是怎样“同时”运行的呢？操作系统给这些进程提供了怎样的抽象呢？操作系统如何实现这个抽象的呢？</p>
 <h2 id="复用"><a href="#复用" class="headerlink" title="复用"></a>复用</h2>
 <p><code>xv6</code>在两种情况下会发生进程切换，第一种是当<code>IO</code>操作完成时，存在等待它的进程，<code>sleep-wakeup</code>机制会进行进程切换；第二种是一个进程的时间片到时。</p>
-<p>这样就给每一个进程提供了CPU的抽象。宏观上来看，似乎每个进程都有自己独占的CPU，就类似于页表使每个进程仿佛有自己的独有内存一样。</p>
+<p>这样就给每一个进线提供了CPU的抽象。宏观上来看，似乎每个线程都有自己独占的CPU，就类似于页表使每个进程仿佛有自己的独有内存一样。</p>
 <p>在设计这样的一个抽象的时候。我们需要考虑一些问题：</p>
 <ul>
 <li>如何实现一个进程切换到另外一个进程？虽然其上下文切换的思想很简单，但是代码写起来却相当麻烦。</li>
@@ -114,8 +114,108 @@
 <li>如何避免就绪进程队列的竞争条件问题？多个CPU会竞争就绪队列的进程，需要用<code>lock</code>来解决。</li>
 <li>如何对已结束进程的所有资源进行回收？虽然进程本身可以释放部分资源，但是它无法释放一些自己的核心资源，比如内核堆栈。</li>
 </ul>
+<p>在<code>Linux</code>中，一个进程可能拥有多个线程，这些线程共享内存。在<code>xv6</code>中有内核线程的概念，因此在<code>xv6</code>内核中，线程是共享内存的。但在用户空间中一般是一个进程中只有一个线程，因此用户空间中的线程可以视为相互隔离的。</p>
 <h2 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h2>
 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/%E5%A4%8D%E7%94%A8.png" alt="image-20230515211525260" style="zoom:25%;">
+<p>线程切换的大致流程是用户程序因为中断或者系统调用进入内核，然后该进程的内核线程切换到<code>scheduler</code>线程，再由<code>scheduler</code>线程从就绪列表选择合适的新内核线程进行切换。其中<code>scheduler</code>线程是依赖于CPU的，也就是说每个CPU都维护了一个自己的<code>scheduler</code>。</p>
+<p>线程的切换主要包括寄存器的保存和恢复，包括<code>PC</code>和堆栈指针的保存和恢复。在<code>swtch</code>中我们保存了当前线程的寄存器，并载入新线程的寄存器。并没有保存<code>PC</code>而是保存<code>RA</code>，这是调用<code>swtch</code>的地址。</p>
+<p><code>scheduler</code>线程是依赖于CPU的并且一直运行<code>scheduler()</code>函数的专用线程。</p>
+<p>需要注意的是，并非所有的线程切换都是时间片用尽导致的，线程结束调用<code>exit()</code>也能导致线程切换。</p>
+<h2 id="代码流程"><a href="#代码流程" class="headerlink" title="代码流程"></a>代码流程</h2>
+<pre><code><span class="hl-source hl-c"><span class="hl-meta hl-struct hl-c"><span class="hl-storage hl-type hl-c">struct</span> <span class="hl-entity hl-name hl-struct hl-c">proc</span> <span class="hl-meta hl-block hl-c"><span class="hl-punctuation hl-section hl-block hl-begin hl-c">{</span></span></span><span class="hl-meta hl-struct hl-c"><span class="hl-meta hl-block hl-c">
+  <span class="hl-storage hl-type hl-c">struct</span> spinlock lock<span class="hl-punctuation hl-terminator hl-c">;</span>
+
+  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> p-&gt;lock must be held when using these:
+</span>  <span class="hl-storage hl-type hl-c">enum</span> procstate state<span class="hl-punctuation hl-terminator hl-c">;</span>        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Process state
+</span>  <span class="hl-keyword hl-operator hl-variadic hl-c">...</span>
+
+  <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> these are private to the process, so p-&gt;lock need not be held.
+</span>  uint64 kstack<span class="hl-punctuation hl-terminator hl-c">;</span>               <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Virtual address of kernel stack
+</span>  <span class="hl-keyword hl-operator hl-variadic hl-c">...</span>
+  <span class="hl-meta hl-struct hl-c"><span class="hl-storage hl-type hl-c">struct</span> <span class="hl-entity hl-name hl-struct hl-c">trapframe</span> *<span class="hl-entity hl-name hl-struct hl-forward-decl hl-c">trapframe</span></span><span class="hl-punctuation hl-terminator hl-c">;</span> <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> data page for trampoline.S
+</span>  <span class="hl-storage hl-type hl-c">struct</span> context context<span class="hl-punctuation hl-terminator hl-c">;</span>      <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> swtch() here to run process
+</span>  <span class="hl-keyword hl-operator hl-variadic hl-c">...</span>
+</span></span><span class="hl-meta hl-struct hl-c"><span class="hl-meta hl-block hl-c"><span class="hl-punctuation hl-section hl-block hl-end hl-c">}</span></span></span><span class="hl-punctuation hl-terminator hl-c">;</span>
+</span></code></pre>
+<p>上面是线程切换需要用到的一些字段。其中<code>state</code>保存了进程的状态；<code>kstack</code>保存了进程的内核堆栈指针；<code>trapframe</code>保存了用户线程的寄存器；<code>lock</code>保护了很多地方线程的一致性；<code>context</code>保存了内核线程的寄存器状态。</p>
+<p>想要区分不同进程的内核线程可以通过一些方式：第一，利用内核堆栈的不同来判断，因为每个用户进程都有自己的内核堆栈；第二，则是通过<code>myproc()</code>函数来判断，该函数通过读取<code>tp</code>寄存器的值来确定当前的CPU编号，同时利用一个记录所有CPU上运行的进程的数组来判断。</p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Give up the CPU for one scheduling round.
+</span><span class="hl-storage hl-type hl-c">void</span>
+<span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">yield</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c++">void</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-meta hl-function hl-c++">
+</span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++">
+  <span class="hl-storage hl-type hl-c">struct</span> proc <span class="hl-keyword hl-operator hl-c">*</span>p <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">myproc</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">acquire</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">lock</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">state</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> RUNNABLE<span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">sched</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">release</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">lock</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+</span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span>
+</span></code></pre>
+<p><code>yield()</code>之所以要获取进程锁是为了避免不一致状态。如果没有申请锁，那么当<code>p-&gt;state</code>修改为<code>RUNABLE</code>后，此时进程的状态表示其不在运行，但是实际上其仍然在接着运行<code>sched()</code>函数，若此时另外一个CPU选择运行该线程，那么此时就有两个CPU在同一个个堆栈上运行了。</p>
+<pre><code><span class="hl-text hl-plain">.globl swtch
+swtch:
+        sd ra, 0(a0)
+        sd sp, 8(a0)
+        sd s0, 16(a0)
+        sd s1, 24(a0)
+        sd s2, 32(a0)
+        sd s3, 40(a0)
+        sd s4, 48(a0)
+        sd s5, 56(a0)
+        sd s6, 64(a0)
+        sd s7, 72(a0)
+        sd s8, 80(a0)
+        sd s9, 88(a0)
+        sd s10, 96(a0)
+        sd s11, 104(a0)
+
+        ld ra, 0(a1)
+        ld sp, 8(a1)
+        ld s0, 16(a1)
+        ld s1, 24(a1)
+        ld s2, 32(a1)
+        ld s3, 40(a1)
+        ld s4, 48(a1)
+        ld s5, 56(a1)
+        ld s6, 64(a1)
+        ld s7, 72(a1)
+        ld s8, 80(a1)
+        ld s9, 88(a1)
+        ld s10, 96(a1)
+        ld s11, 104(a1)
+        
+        ret
+</span></code></pre>
+<p>这里需要注意的是，<code>xv6</code>中明明有32个寄存器，而这里只保存了14个。这是因为当线程调用<code>sched()</code>函数的时候，是以函数调用的方式进行的，因此部分寄存器已经在内核堆栈中保存，并且在函数返回的时候会自动恢复，所以不用专门去做保存。</p>
+<pre><code><span class="hl-source hl-c++"><span class="hl-storage hl-type hl-c">void</span>
+<span class="hl-meta hl-function hl-c++"><span class="hl-entity hl-name hl-function hl-c++">scheduler</span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function hl-parameters hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-storage hl-type hl-c++">void</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-meta hl-function hl-c++">
+</span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span></span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++">
+  <span class="hl-storage hl-type hl-c">struct</span> proc <span class="hl-keyword hl-operator hl-c">*</span>p<span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-storage hl-type hl-c">struct</span> cpu <span class="hl-keyword hl-operator hl-c">*</span>c <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">mycpu</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  
+  c<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">proc</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+  <span class="hl-keyword hl-control hl-c++">for</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span><span class="hl-punctuation hl-terminator hl-c++">;</span><span class="hl-punctuation hl-terminator hl-c++">;</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+    <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Avoid deadlock by ensuring that devices can interrupt.
+</span>    <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">intr_on</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+    <span class="hl-keyword hl-control hl-c++">for</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>p <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> proc<span class="hl-punctuation hl-terminator hl-c++">;</span> p <span class="hl-keyword hl-operator hl-comparison hl-c">&lt;</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>proc<span class="hl-meta hl-brackets hl-c++"><span class="hl-punctuation hl-section hl-brackets hl-begin hl-c++">[</span>NPROC<span class="hl-punctuation hl-section hl-brackets hl-end hl-c++">]</span></span><span class="hl-punctuation hl-terminator hl-c++">;</span> p<span class="hl-keyword hl-operator hl-arithmetic hl-c">+</span><span class="hl-keyword hl-operator hl-arithmetic hl-c">+</span><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+      <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">acquire</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">lock</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+      <span class="hl-keyword hl-control hl-c++">if</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">state</span> <span class="hl-keyword hl-operator hl-comparison hl-c">==</span> RUNNABLE<span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span> <span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-begin hl-c++">{</span>
+        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Switch to chosen process.  It is the process&#39;s job
+</span>        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> to release its lock and then reacquire it
+</span>        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> before jumping back to us.
+</span>        p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">state</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> RUNNING<span class="hl-punctuation hl-terminator hl-c++">;</span>
+        c<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">proc</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> p<span class="hl-punctuation hl-terminator hl-c++">;</span>
+        <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">swtch</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>c<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">context</span><span class="hl-punctuation hl-separator hl-c++">,</span> <span class="hl-keyword hl-operator hl-c">&amp;</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">context</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+
+        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> Process is done running for now.
+</span>        <span class="hl-comment hl-line hl-double-slash hl-c"><span class="hl-punctuation hl-definition hl-comment hl-c">//</span> It should have changed its p-&gt;state before coming back.
+</span>        c<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">proc</span> <span class="hl-keyword hl-operator hl-assignment hl-c">=</span> <span class="hl-constant hl-numeric hl-c++">0</span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+      <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+      <span class="hl-meta hl-function-call hl-c++"><span class="hl-variable hl-function hl-c++">release</span><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-begin hl-c++">(</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-keyword hl-operator hl-c">&amp;</span>p<span class="hl-punctuation hl-accessor hl-arrow hl-c++">-&gt;</span><span class="hl-variable hl-other hl-readwrite hl-member hl-c++">lock</span></span></span><span class="hl-meta hl-function-call hl-c++"><span class="hl-meta hl-group hl-c++"><span class="hl-punctuation hl-section hl-group hl-end hl-c++">)</span></span></span><span class="hl-punctuation hl-terminator hl-c++">;</span>
+    <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+  <span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span>
+</span></span><span class="hl-meta hl-function hl-c++"><span class="hl-meta hl-block hl-c++"><span class="hl-punctuation hl-section hl-block hl-end hl-c++">}</span></span></span>
+</span></code></pre>
 
   
 
