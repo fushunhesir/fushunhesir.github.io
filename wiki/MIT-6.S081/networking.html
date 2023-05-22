@@ -20,17 +20,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>MIT-6.S081：Page Tables - hiblog</title>
+  <title>MIT-6.S081：Networking - hiblog</title>
 
   
-    <meta name="description" content="检测被访问过的页面 背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。 目的：实现检测页表访问位并将结果返回到用户态 预备知识：RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位 任务  代码实现在kernel&#x2F;sysproc.c中的sys_pgaccess()，参数如下  第一个要检查的用户页面的虚拟地址 将要检查页面的数量 用于返回掩码结果的">
+    <meta name="description" content="网络驱动">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Page Tables">
-<meta property="og:url" content="http://fushunhesir.github.io/wiki/MIT-6.S081/page-tables">
+<meta property="og:title" content="Networking">
+<meta property="og:url" content="http://fushunhesir.github.io/wiki/MIT-6.S081/networking">
 <meta property="og:site_name" content="hiblog">
-<meta property="og:description" content="检测被访问过的页面 背景：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。 目的：实现检测页表访问位并将结果返回到用户态 预备知识：RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位 任务  代码实现在kernel&#x2F;sysproc.c中的sys_pgaccess()，参数如下  第一个要检查的用户页面的虚拟地址 将要检查页面的数量 用于返回掩码结果的">
+<meta property="og:description" content="网络驱动">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-22T07:29:08.396Z">
+<meta property="article:published_time" content="2023-05-19T06:01:34.000Z">
 <meta property="article:modified_time" content="2023-05-22T07:29:08.396Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
@@ -81,7 +81,7 @@
 <widget class="widget-wrapper ghrepo"><div class="widget-body"><div class="items stellar-ghinfo-api" api="https://api.github.com/repos/fushunhesir/6.S081"><a class="repo" href="https://github.com/fushunhesir/6.S081" target="_blank" rel="external nofollow noopener noreferrer"><div class="repo-name flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>fushunhesir/6.S081</div><div class="repo-desc"><span type="text" id="description">&nbsp;</span></div><div class="grid"><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg><span type="text" id="stargazers_count"></span></div><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span type="text" id="forks_count"></span></div><div class="flex-row stellar-ghinfo-api" index="0" api="https://api.github.com/repos/fushunhesir/6.S081/tags"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg><span type="text" id="latest-tag-name">0</span></div></div></a></div></div></widget>
 
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/locks"><span class="toc-text">锁机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/scheduling"><span class="toc-text">调度</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/sleep&wakeup"><span class="toc-text">环境配置</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/filesystem"><span class="toc-text">文件系统</span></a></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E8%A2%AB%E8%AE%BF%E9%97%AE%E8%BF%87%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="toc-text">检测被访问过的页面</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/multithread"><span class="toc-text">多线程</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/networking"><span class="toc-text">Networking</span></a></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/locks"><span class="toc-text">锁机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/scheduling"><span class="toc-text">调度</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/sleep&wakeup"><span class="toc-text">环境配置</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/filesystem"><span class="toc-text">文件系统</span></a></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/multithread"><span class="toc-text">多线程</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/networking"><span class="toc-text">Networking</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8"><span class="toc-text">网络驱动</span></a></li></ol></div></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/fushunhesir/6.S081/issues?per_page=3"></div></div></widget>
 
@@ -100,36 +100,15 @@
 <div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-22T07:29:08.396Z">2023-05-22</time></div></div>
 
   <article class='md-text content wiki'>
-  <h1 class="article-title"><span>Page Tables</span></h1>
-  <h2 id="检测被访问过的页面"><a href="#检测被访问过的页面" class="headerlink" title="检测被访问过的页面"></a>检测被访问过的页面</h2>
-<p><strong>背景</strong>：一些垃圾回收机制如果能够获取页面是否被访问的信息，将能够提高效率。</p>
-<p><strong>目的</strong>：实现检测页表访问位并将结果返回到用户态</p>
-<p><strong>预备知识</strong>：RISC-V硬件处理TLB缺失时，将新的虚拟地址载入时，会将相应的页面访问位置位</p>
-<p><strong>任务</strong></p>
-<ul>
-<li>代码实现在<code>kernel/sysproc.c</code>中的<code>sys_pgaccess()</code>，参数如下
-<ul>
-<li>第一个要检查的用户页面的虚拟地址</li>
-<li>将要检查页面的数量</li>
-<li>用于返回掩码结果的用户空间地址</li>
-</ul>
-</li>
-<li>使用<code>argaddr()</code>和<code>argint()</code>解析参数</li>
-<li>最好在内核使用一个临时的缓冲区保存要输出的位掩码，利用<code>copyout()</code>输出</li>
-<li>可以设置扫描页面数量的上限</li>
-<li>使用<code>walk()</code>来找到正确的<code>PTE</code></li>
-<li>需要在<code>kernel/riscv.h</code>中定义<code>PTE_A</code></li>
-<li>确保检查<code>PTE_A</code>后，将其清零。否则无法判断在上次检查之后该页面有没有再次被访问</li>
-<li>使用<code>vmprint()</code>来帮助debug</li>
-</ul>
-<p><strong>代码</strong></p>
+  <h1 class="article-title"><span>Networking</span></h1>
+  <h2 id="网络驱动"><a href="#网络驱动" class="headerlink" title="网络驱动"></a>网络驱动</h2>
 
   
 
 
   </article>
   
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/MIT-6.S081/filesystem">文件系统</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/MIT-6.S081/traps">Traps</a></div></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/MIT-6.S081/multithread">多线程</a></div><div class="item" id="next"></div></section></div>
 
   
 
