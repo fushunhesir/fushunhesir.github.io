@@ -1,7 +1,7 @@
 ---
 layout: wiki
 wiki: MIT-6.S081
-title: 环境配置
+title: 睡眠唤醒机制
 order: 9
 
 ---

@@ -1,6 +1,6 @@
 ---
 layout: wiki
-title: 多线程
+title: multithread
 wiki: MIT-6.S081
 order: 27
 date: 2023-05-019 14:01:34
