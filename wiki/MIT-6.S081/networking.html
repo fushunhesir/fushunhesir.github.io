@@ -20,18 +20,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>MIT-6.S081：Networking - hiblog</title>
+  <title>MIT-6.S081：Network driver - hiblog</title>
 
   
-    <meta name="description" content="网络驱动">
+    <meta name="description" content="网络驱动 背景： 使用E1000网卡处理网络通信。事实上，qemu模拟了E1000和局域网。在这个模拟局域网上，xv6的IP地址为10.0.2.15，真实主机IP地址为10.0.2.2。当xv6使用E1000向10.0.2.2发送数据包时，会将数据包传递到真实主机上对应的应用程序。 packets.pcap文件中记录了传入和传出的数据包。通过一下命令查看： tcpdump -XXnr packet">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Networking">
+<meta property="og:title" content="Network driver">
 <meta property="og:url" content="http://fushunhesir.github.io/wiki/MIT-6.S081/networking">
 <meta property="og:site_name" content="hiblog">
-<meta property="og:description" content="网络驱动">
+<meta property="og:description" content="网络驱动 背景： 使用E1000网卡处理网络通信。事实上，qemu模拟了E1000和局域网。在这个模拟局域网上，xv6的IP地址为10.0.2.15，真实主机IP地址为10.0.2.2。当xv6使用E1000向10.0.2.2发送数据包时，会将数据包传递到真实主机上对应的应用程序。 packets.pcap文件中记录了传入和传出的数据包。通过一下命令查看： tcpdump -XXnr packet">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-19T06:01:34.000Z">
-<meta property="article:modified_time" content="2023-05-22T07:29:08.396Z">
+<meta property="article:modified_time" content="2023-06-15T03:47:53.777Z">
 <meta property="article:author" content="kevin.hw.he">
 <meta property="article:tag" content="computer science">
 <meta property="article:tag" content="economy">
@@ -81,7 +81,7 @@
 <widget class="widget-wrapper ghrepo"><div class="widget-body"><div class="items stellar-ghinfo-api" api="https://api.github.com/repos/fushunhesir/6.S081"><a class="repo" href="https://github.com/fushunhesir/6.S081" target="_blank" rel="external nofollow noopener noreferrer"><div class="repo-name flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>fushunhesir/6.S081</div><div class="repo-desc"><span type="text" id="description">&nbsp;</span></div><div class="grid"><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg><span type="text" id="stargazers_count"></span></div><div class="flex-row"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg><span type="text" id="forks_count"></span></div><div class="flex-row stellar-ghinfo-api" index="0" api="https://api.github.com/repos/fushunhesir/6.S081/tags"><svg aria-hidden="true" role="img" class="color-icon-primary" viewBox="0 0 16 16" width="1em" height="1em" fill="currentColor" style="user-select:none;overflow:visible"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg><span type="text" id="latest-tag-name">0</span></div></div></a></div></div></widget>
 
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/locks"><span class="toc-text">锁机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/scheduling"><span class="toc-text">调度</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/sleep&wakeup"><span class="toc-text">环境配置</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/filesystem"><span class="toc-text">文件系统</span></a></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/multithread"><span class="toc-text">多线程</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/networking"><span class="toc-text">Networking</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8"><span class="toc-text">网络驱动</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">配置问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/index.html#start"><span class="toc-text">环境配置</span></a></div></div><div class="widget-header cap dis-select"><span class="name">理论部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps-syscall"><span class="toc-text">陷阱和系统调用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-faults"><span class="toc-text">缺页异常</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/drivers-interrupts"><span class="toc-text">中断和设备驱动</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/locks"><span class="toc-text">锁机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/scheduling"><span class="toc-text">调度</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/sleep&wakeup"><span class="toc-text">睡眠唤醒机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/filesystem"><span class="toc-text">文件系统</span></a></div></div><div class="widget-header cap dis-select"><span class="name">实验部分</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/page-tables"><span class="toc-text">Page Tables</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/traps"><span class="toc-text">Traps</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/copy-on-write"><span class="toc-text">Copy-On-Write</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/MIT-6.S081/multithread"><span class="toc-text">multithread</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/MIT-6.S081/networking"><span class="toc-text">Network driver</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8"><span class="toc-text">网络驱动</span></a></li></ol></div></div></widget>
 
 <widget class="widget-wrapper timeline"><div class="widget-body fs14"><div class="tag-plugin timeline stellar-timeline-api" api="https://api.github.com/repos/fushunhesir/6.S081/issues?per_page=3"></div></div></widget>
 
@@ -97,18 +97,65 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-05-22T07:29:08.396Z">2023-05-22</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">项目</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/MIT-6.S081/index.html">MIT-6.S081</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-06-15T03:47:53.777Z">2023-06-15</time></div></div>
 
   <article class='md-text content wiki'>
-  <h1 class="article-title"><span>Networking</span></h1>
+  <h1 class="article-title"><span>Network driver</span></h1>
   <h2 id="网络驱动"><a href="#网络驱动" class="headerlink" title="网络驱动"></a>网络驱动</h2>
+<p><strong>背景</strong>：</p>
+<p>使用E1000网卡处理网络通信。事实上，<code>qemu</code>模拟了E1000和局域网。在这个模拟局域网上，xv6的IP地址为<code>10.0.2.15</code>，真实主机IP地址为<code>10.0.2.2</code>。当<code>xv6</code>使用<code>E1000</code>向<code>10.0.2.2</code>发送数据包时，会将数据包传递到真实主机上对应的应用程序。</p>
+<p>packets.pcap文件中记录了传入和传出的数据包。通过一下命令查看：</p>
+<pre><code><span class="hl-text hl-plain">tcpdump -XXnr packets.pcap
+</span></code></pre>
+<p><code>kernel/e1000.c</code>包含e1000的初始化代码以及需要你完善的用于发送和接收数据包的函数。</p>
+<p><code>kernel/e000_dev.h</code>包含e1000定义的寄存器和标志位的定义，可以在英特尔<code>E1000</code>软件开发人员手册中进一步了解。</p>
+<p><code>kernel/net.c</code>和<code>kernel/ne.h</code>包含一个简单的网络协议栈，实现了<code>IP</code>、<code>UDP</code>和<code>ARP</code>协议。这些文件还包含用于保存数据包的数据结构，称为<code>mbuf</code>。</p>
+<p><code>kernel/pci.c</code>包含在<code>xv6</code>启动时在<code>PCI</code>总线上搜索<code>E1000</code>卡的代码。</p>
+<p><strong>任务</strong></p>
+<ul>
+<li>完善<code>kernel/e1000.c</code>用于发送和接收数据包的函数<code>e1000_transmit()</code>和<code>e1000_recv()</code></li>
+<li><a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.S081/2021/readings/8254x_GBe_SDM.pdf"><code>E1000</code></a>的软件开发手册对你来说应该是有帮助的：
+<ul>
+<li>Section 2对设备进行整体概述。</li>
+<li>Section 3.2描述接收包的大致过程。</li>
+<li>Section 3.3 和 Section 3.4描述发送包的大致过程。</li>
+<li>Section 13介绍<code>E1000</code>的寄存器。</li>
+<li>Section 14帮助你理解<code>xv6</code>中的初始化代码。</li>
+</ul>
+</li>
+</ul>
+<p>本手册涵盖了几个密切相关的以太网控制器。QEMU模拟82540EM。现在浏览第2章，感受一下设备。要写司机，您需要熟悉第3章和第14章以及4.1章（尽管不是4.1的小节）。您还需要使用第13章作为参考。其他章节主要涵盖了您的驱动程序不必与之交互的E1000组件。一开始不要担心细节；只要了解一下文档的结构，这样你以后就可以找到东西了。E1000有许多高级功能，其中大部分你可以忽略。完成这个实验室只需要一小套基本功能。</p>
+<p>我们在e1000.c中为您提供的e1000_init()函数将E1000配置为读取要从RAM传输的数据包，并将接收的数据包写入RAM。这种技术被称为DMA，用于直接内存访问，指的是E1000硬件直接向/从RAM写入和读取数据包。</p>
+<p>由于数据包的突发可能比驱动程序处理速度快，e1000_init()为E1000提供了多个缓冲区，E1000可以向其中写入数据包。E1000要求这些缓冲区由RAM中的“描述符”数组来描述；每个描述符都包含RAM中的地址，E1000可以写入接收的数据包。struct rx_desc描述了描述符格式。描述符数组称为接收环或接收队列。这是一个圆形环，当卡或驱动程序到达数组的末尾时，它会包装回开头。e1000_init()使用mbufalloc()将E1000的mbuf数据包缓冲区分配给DMA。还有一个传输环，驱动程序将它希望E1000发送的数据包放入其中。e1000_init()将两个环配置为具有RX_RING_SIZE和TX_RING_SIZE的大小。</p>
+<p>当net.c中的网络堆栈需要发送数据包时，它会使用保存要发送的数据包的mbuf调用e1000_transmit()。您的传输代码必须在TX（传输）环的描述符中放置指向数据包数据的指针。struct tx_desc描述了描述符格式。您需要确保最终释放每个mbuf，但只有在E1000完成传输数据包后（E1000在描述符中设置E1000_TXD_STAT_DD位来指示这一点）。</p>
+<p>当E1000从以太网接收每个数据包时，它首先将数据包发送到下一个RX（接收）环描述符指向的mbuf，然后生成中断。您的e1000_recv()代码必须扫描RX环，并通过调用net_rx()将每个新数据包的mbuf发送到网络堆栈（在net.c中）。然后，您需要分配一个新的mbuf并将其放入描述符中，这样当E1000再次到达RX环中的该点时，它会找到一个新的缓冲区，以便DMA一个新的数据包。</p>
+<p>除了在RAM中读取和写入描述符环外，您的驱动程序还需要通过其内存映射的控制寄存器与E1000交互，以检测何时可用的数据包，并通知E1000驱动程序已用要发送的数据包填写了一些TX描述符。全局变量regs持有指向E1000第一个控制寄存器的指针；您的驱动程序可以通过将regs索引为数组来获取其他寄存器。您特别需要使用索引E1000_RDT和E1000_TDT。</p>
+<p>要测试您的驱动程序，请在一个窗口中运行make服务器，在另一个窗口中运行make qemu，然后在xv6中运行nettests。nettests中的第一个测试试图将UDP数据包发送到主机操作系统，发送到使服务器运行的程序。如果您尚未完成实验室，E1000驱动程序实际上不会发送数据包，也不会发生任何事情。</p>
+<p>完成实验室后，E1000驱动程序将发送数据包，qemu将将其发送到您的主机计算机，使服务器将看到它，它将发送响应数据包，然后E1000驱动程序和nettests将看到响应数据包。然而，在主机发送回复之前，它会向xv6发送一个“ARP”请求数据包，以查找其48位以太网地址，并希望xv6以ARP回复进行响应。一旦您完成E1000驱动程序的工作，kernel/net.c将处理此问题。如果一切顺利，nettests将打印测试ping：好的，并使服务器将打印来自xv6的消息！</p>
+<p>首先将打印语句添加到e1000_transmit()和e1000_recv()中，并运行make服务器和（在xv6中）nettests。您应该从打印语句中看到，nettests会生成对e1000_transmit的调用。</p>
+<p>实现e1000_transmit的一些提示：</p>
+<p>首先通过读取E1000_TDT控制寄存器，向E1000询问它期待下一个数据包的TX环形索引。</p>
+<p>然后检查戒指是否溢出。如果E1000_TDT索引的描述符中没有设置E1000_TXD_STAT_DD，则E1000尚未完成相应的先前传输请求，因此返回错误。</p>
+<p>否则，使用mbuffree（）释放从该描述符传输的最后一个mbuf（如果有的话）。</p>
+<p>然后填写描述符。m-&gt;head指向内存中的数据包内容，m-&gt;len是数据包长度。设置必要的cmd标志（查看E1000手册中的第3.3节），并隐藏一个指向mbuf的指针，以便以后释放。</p>
+<p>最后，通过在E1000_TDT modulo TX_RING_SIZE中添加一个来更新环形位置。</p>
+<p>如果e1000_transmit()成功将mbuf添加到环中，则返回0。失败时（例如，没有可用的描述符来传输mbuf），返回-1，以便调用者知道释放mbuf。</p>
+<p>实现e1000_recv的一些提示：</p>
+<p>首先，通过获取E1000_RDT控制寄存器并添加一个模RX_RING_SIZE，向E1000询问下一个等待接收数据包（如果有的话）所在的环形索引。</p>
+<p>然后通过检查描述符状态部分中的E1000_RXD_STAT_DD位来检查新数据包是否可用。如果没有，就停下来。</p>
+<p>否则，将mbuf的m-&gt;len更新为描述符中报告的长度。使用net_rx()将mbuf传递到网络堆栈。</p>
+<p>然后使用mbufalloc()分配一个新的mbuf来替换刚刚给net_rx()的mbuf。将其数据指针（m-&gt;head）编程到描述符中。将描述符的状态位清除为零。</p>
+<p>最后，将E1000_RDT寄存器更新为处理的最后一个环描述符的索引。</p>
+<p>e1000_init()用mbufs初始化RX环，你会想看看它是如何做到的，也许还可以借用代码。</p>
+<p>在某个时候，曾经到达的数据包总数将超过环大小（16）；请确保您的代码可以处理。</p>
+<p>您需要锁来应对xv6可能从多个进程使用E1000的可能性，或者在中断到达时可能在内核线程中使用E1000。</p>
 
   
 
 
   </article>
   
-<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/MIT-6.S081/multithread">多线程</a></div><div class="item" id="next"></div></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/MIT-6.S081/multithread">multithread</a></div><div class="item" id="next"></div></section></div>
 
   
 
