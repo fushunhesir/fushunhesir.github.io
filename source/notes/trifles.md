@@ -3,7 +3,7 @@ layout: wiki
 title: 杂记
 wiki: Notes
 menu_id: notes
-
+order: 2
 ---
 
 ## Homebrew
