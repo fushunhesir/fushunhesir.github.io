@@ -23,19 +23,21 @@
   <title>笔记：杂记 - hiblog</title>
 
   
-    <meta name="description" content="Homebrew 通过走终端代理，让下载速度飞升">
+    <meta name="description" content="未分类问题 homebrew下载软件包速度缓慢的解决方案 通过homebrew来下载软件包的时候，下载速度很缓慢。我尝试过更换国内源（中科大源），但是效果仍然很差。最终通过终端代理实现提速，下载速度极快，足够满足需求。 终端代理开启命令和效果因人而异，取决于您的代理客户端和机场速度。 若您是Clash用户，那么可以通过如下操作进行：  首先复制终端代理命令。    接着在终端执行代理命令即可。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="杂记">
 <meta property="og:url" content="http://fushunhesir.github.io/notes/trifles">
 <meta property="og:site_name" content="hiblog">
-<meta property="og:description" content="Homebrew 通过走终端代理，让下载速度飞升">
+<meta property="og:description" content="未分类问题 homebrew下载软件包速度缓慢的解决方案 通过homebrew来下载软件包的时候，下载速度很缓慢。我尝试过更换国内源（中科大源），但是效果仍然很差。最终通过终端代理实现提速，下载速度极快，足够满足需求。 终端代理开启命令和效果因人而异，取决于您的代理客户端和机场速度。 若您是Clash用户，那么可以通过如下操作进行：  首先复制终端代理命令。    接着在终端执行代理命令即可。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-07T16:10:49.970Z">
-<meta property="article:modified_time" content="2023-07-07T16:10:49.970Z">
-<meta property="article:author" content="kevin.hw.he">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/23080701.png">
+<meta property="article:published_time" content="2023-08-14T03:40:57.103Z">
+<meta property="article:modified_time" content="2023-08-14T03:40:57.103Z">
+<meta property="article:author" content="Hanwei He">
 <meta property="article:tag" content="computer science">
-<meta property="article:tag" content="economy">
+<meta property="article:tag" content="self development">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/23080701.png">
   
   
 
@@ -84,7 +86,7 @@
 
 
 
-<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">理财随笔</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/funds"><span class="toc-text">基金基础</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/trifles"><span class="toc-text">杂记</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Homebrew"><span class="toc-text">Homebrew</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/pre"><span class="toc-text">如何做好Presentation</span></a></div></div><div class="widget-header cap dis-select"><span class="name">C++笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/Network-Programming"><span class="toc-text">C++网络编程</span></a></div></div></widget>
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">理财随笔</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/funds"><span class="toc-text">基金基础</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/trifles"><span class="toc-text">杂记</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-text">未分类问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6%E5%8C%85%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">homebrew下载软件包速度缓慢的解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E5%8E%BB%E9%99%A4APP%E5%90%8D%E7%A7%B0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">华为手机去除APP名称的解决方案</span></a></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/pre"><span class="toc-text">如何做好Presentation</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/230713s"><span class="toc-text">逆全球化视角</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/photography"><span class="toc-text">摄影笔记</span></a></div></div><div class="widget-header cap dis-select"><span class="name">C++笔记</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/Network-Programming"><span class="toc-text">C++网络编程</span></a></div></div></widget>
 
 
 
@@ -100,12 +102,74 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/notes/">随笔</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/notes/index.html">笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-07-07T16:10:49.970Z">2023-07-08</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/notes/">随笔</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/notes/index.html">笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2023-08-14T03:40:57.103Z">2023-08-14</time></div></div>
 
   <article class='md-text content wiki'>
   <h1 class="article-title"><span>杂记</span></h1>
-  <h2 id="Homebrew"><a href="#Homebrew" class="headerlink" title="Homebrew"></a>Homebrew</h2>
-<p>通过走终端代理，让下载速度飞升</p>
+  <h2 id="未分类问题"><a href="#未分类问题" class="headerlink" title="未分类问题"></a>未分类问题</h2>
+<h3 id="homebrew下载软件包速度缓慢的解决方案"><a href="#homebrew下载软件包速度缓慢的解决方案" class="headerlink" title="homebrew下载软件包速度缓慢的解决方案"></a>homebrew下载软件包速度缓慢的解决方案</h3>
+<p>通过homebrew来下载软件包的时候，下载速度很缓慢。我尝试过更换国内源（中科大源），但是效果仍然很差。最终通过终端代理实现提速，下载速度极快，足够满足需求。</p>
+<p>终端代理开启命令和效果因人而异，取决于您的代理客户端和机场速度。</p>
+<p>若您是Clash用户，那么可以通过如下操作进行：</p>
+<ol>
+<li>首先复制终端代理命令。</li>
+</ol>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/23080701.png" alt="image-20230807143659615" style="zoom:50%;">
+<ol start="2">
+<li>接着在终端执行代理命令即可。</li>
+</ol>
+<h3 id="华为手机去除APP名称的解决方案"><a href="#华为手机去除APP名称的解决方案" class="headerlink" title="华为手机去除APP名称的解决方案"></a>华为手机去除APP名称的解决方案</h3>
+<p>目前市场上绝大部分手机能够修改默认桌面启动器，但是华为禁止该项功能，官方解释为处于安全和隐私考虑。但这对于有定制化需求的用户来说不够合理，比如本人就想将手机上的APP名称给删除，华为系统没有该功能的实现。</p>
+<p>因此，下面将记录通过修改华为手机主题文件来实现隐藏应用名称的方法。同时以我目前的了解来讲，很多定制化需求都能通过修改主题文件来实现，读者可自行学习。</p>
+<ol>
+<li>
+<p>首先下载合适的主题。</p>
+<p><strong>注意</strong>：<em>请不要在华为商城下载主题</em>，除开付费缺点外，主题出于版权是不开放源码的，无法进行修改，可以在华为或者荣耀的论坛上下载免费主题。</p>
+</li>
+<li>
+<p>将下载的hwt文件解压。</p>
+<p><strong>注意</strong>：hwt文件是华为的主题文件，本质上是zip文件，将其后缀改为.zip即可解压。</p>
+</li>
+<li>
+<p>解压其中com.huawei.android.launcher文件。</p>
+</li>
+<li>
+<p>修改其中的theme.xml文件。</p>
+</li>
+<li>
+<p>修改后，将之前解压的文件倒序压缩，恢复为hwt文件。</p>
+</li>
+<li>
+<p>在手机上将该hwt文件放在Huawei/Themes文件夹下。</p>
+</li>
+<li>
+<p>最后在华为的主题中找到新主题，应用即可。</p>
+</li>
+</ol>
+<p>下面是修改代码的示例：</p>
+<pre><code><span class="hl-text hl-xml"><span class="hl-meta hl-tag hl-preprocessor hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;?</span><span class="hl-entity hl-name hl-tag hl-xml">xml</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">version</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>1.0<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">encoding</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>utf-8<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">?&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">hwthemes</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> 桌面图标投影 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>icon_shadow<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>#00000000<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> 一键清理字体颜色 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>widget_text_color<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>#FFFFFFFF<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>
+ 
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> 鸿蒙卡片App文字颜色 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>workspace_app_text_color<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>#00000000<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>（桌面无字前两位色值加00）
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span>桌面图标文字投影颜色<span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>workspace_app_text_shadowColor<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>#00000000<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> 桌面图标文字投影颜色 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>icon_shadow<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>#00000000<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> 桌面图标文字阴影开关 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> true为显示false为隐藏 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">bool</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>workspace_app_text_shadow<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>true<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">bool</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>（一键清理统一色值则选择true）
+ 
+<span class="hl-comment hl-block hl-xml"><span class="hl-punctuation hl-definition hl-comment hl-begin hl-xml">&lt;!--</span> 文件夹内APP文字颜色 <span class="hl-punctuation hl-definition hl-comment hl-end hl-xml">--&gt;</span></span>
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span> <span class="hl-entity hl-other hl-attribute-name hl-localname hl-xml">name</span><span class="hl-punctuation hl-separator hl-key-value hl-xml">=</span><span class="hl-string hl-quoted hl-double hl-xml"><span class="hl-punctuation hl-definition hl-string hl-begin hl-xml">&quot;</span>folder_app_text_color<span class="hl-punctuation hl-definition hl-string hl-end hl-xml">&quot;</span></span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>#00000000<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">color</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>（文件夹无字前两位色值加00）
+ 
+<span class="hl-meta hl-tag hl-xml"><span class="hl-punctuation hl-definition hl-tag hl-begin hl-xml">&lt;/</span><span class="hl-entity hl-name hl-tag hl-localname hl-xml">hwthemes</span><span class="hl-punctuation hl-definition hl-tag hl-end hl-xml">&gt;</span></span>
+</span></code></pre>
+<p><strong>注意</strong>：当您在修改代码时，完全复制本段代码，仅需要将您文件中含text的元素设置颜色为<code>#00000000</code></p>
 
   
 
