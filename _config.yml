@@ -7,12 +7,11 @@ title: hiblog
 subtitle: 'a simple blog'
 favicon: https://cdn.jsdelivr.net/gh/fushunhesir/blog-images@main/imgs/蜜蜂头像.jpg
 description: 
-  - 'computer science'
-  - 'economy'
+  - 'a blog that records various knowledge'
 keywords: 
   - computer science 
-  - economy
-author: kevin.hw.he
+  - self development
+author: Hanwei He
 language: 
   - zh-CN
   - en
